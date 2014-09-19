@@ -24,7 +24,7 @@ class Parlamentar():
 # Classe para proposições
 class Proposicao():
     def __init__(self):
-        self.id = 0
+        self.id_proposicao = 0
         self.ano = 0
         self.numero = 0
         self.ementa = ""
@@ -84,9 +84,19 @@ for parlamentar in parlamentares:
     for proposicao in proposicoes:
         url_proposicao = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID?IdProp=%s' % proposicao.find('id').text
         xml_proposicao = ET.parse(urlopen(url_proposicao))
-        proposicao = xml_proposicao.getroot()
-        nome_autor1 = proposicao.find('Autor').text
+        root_proposicao = xml_proposicao.getroot()
+        nome_autor1 = root_proposicao.find('Autor').text
         if cmp(nome_autor1.upper(), parlamentar.nome) != 0:
+            proposicao = Proposicao()
+            proposicao.numero = root_proposicao.attrib.get('numero')
+            proposicao.ano = root_proposicao.attrib.get('ano')
+            proposicao.id_proposicao = int(root_proposicao.find('idProposicao').text)
+            proposicao.ementa = root_proposicao.find('Ementa').text
+            proposicao.explicacao = root_proposicao.find('ExplicacaoEmenta').text
+            proposicao.autor = parlamentar
+            proposicao.data_apresentacao = root_proposicao.find('DataApresentacao').text
+            proposicao.situacao = root_proposicao.find('Situacao').text
+            proposicao.link_teor = root_proposicao.find('LinkInteiroTeor').text
             num_proposicoes += 1
     if num_proposicoes > 0:
         print "Proposições de PL d@ parlamentar", parlamentar.nome, "obtidas :D"
@@ -96,4 +106,5 @@ for parlamentar in parlamentares:
         print "Parlamentar sem proposição de PL :'("
         print
         sleep(1)
+
 
