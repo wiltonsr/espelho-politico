@@ -90,6 +90,7 @@ gabinete int
 );"""
 cursor.execute(create_table_string)
 db.commit()
+total_parlamentares = 0
 for xml_parlamentar in xml_parlamentares:
     parlamentar = Parlamentar()
     parlamentar.nome = xml_parlamentar.find('nomeParlamentar').text
@@ -115,7 +116,11 @@ for xml_parlamentar in xml_parlamentares:
     print "Parlamentar", parlamentar.nome, "encontrad@"
     print
     parlamentares.append(parlamentar)
+    total_parlamentares += 1
 
+print
+print
+print "Total de parlamentares:", total_parlamentares
 proposicoes = []
 print '-----------------------------------------------------------'
 print
@@ -135,57 +140,63 @@ constraint FK_proposicao_id_autor foreign key(id_autor) references parlamentar(i
 );"""
 cursor.execute(create_table_string)
 db.commit()
+total_proposicoes = 0
 for parlamentar in parlamentares:
     print "Obtendo proposições d@ parlamentar", parlamentar.nome
     nome = remove_acentos(parlamentar.nome)
-    url_proposicoes = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=PL&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor=%s&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=' % nome.replace(' ', '+')
-    try:
-        xml_proposicoes = ET.parse(urlopen(url_proposicoes))
-    except HTTPError:
-        print "Parlamentar sem proposição de PL :'("
-        print
-        sleep(1)
-        continue
-    proposicoes = xml_proposicoes.getroot()
-    num_proposicoes = 0
-    for proposicao in proposicoes:
-        url_proposicao = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID?IdProp=%s' % proposicao.find('id').text
-        xml_proposicao = ET.parse(urlopen(url_proposicao))
-        root_proposicao = xml_proposicao.getroot()
-        nome_autor1 = root_proposicao.find('Autor').text
-        if cmp(nome_autor1.upper(), parlamentar.nome) != 0:
-            proposicao = Proposicao()
-            proposicao.numero = root_proposicao.attrib.get('numero')
-            proposicao.ano = root_proposicao.attrib.get('ano')
-            proposicao.id_proposicao = int(root_proposicao.find('idProposicao').text)
-            proposicao.ementa = root_proposicao.find('Ementa').text
-            proposicao.explicacao = root_proposicao.find('ExplicacaoEmenta').text
-            proposicao.autor = parlamentar
-            data = root_proposicao.find('DataApresentacao').text
-            data = data.split('/')
-            data = date(int(data[2]), int(data[1]), int(data[0]))
-            proposicao.data_apresentacao = data.isoformat()
-            proposicao.situacao = root_proposicao.find('Situacao').text
-            proposicao.link_teor = root_proposicao.find('LinkInteiroTeor').text
-            insert_parlamentar_string = """
-                insert into proposicao
-                (id, numero, ano, ementa, explicacao, id_autor, data_apresentacao, situacao, link_teor)
-                values ('%s', "%s", '%s', '%s', '%s', '%s', '%s', '%s', '%s')
-                """ % (proposicao.id_proposicao, proposicao.numero, proposicao.ano, proposicao.ementa,
-                       proposicao.explicacao, proposicao.autor.id_cadastro, proposicao.data_apresentacao,
-                       proposicao.situacao, proposicao.link_teor)
+    for pl in ['PL', 'PLC', 'PLN', 'PLP', 'PLS', 'PLV']:
+        url_proposicoes = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=%s&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor=%s&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=' % (pl, nome.replace(' ', '+'))
+        try:
+            xml_proposicoes = ET.parse(urlopen(url_proposicoes))
+        except HTTPError:
+            print "Parlamentar sem proposição de", pl, ":'("
+            print
+            sleep(1)
+            continue
+        num_proposicoes = 0
+        proposicoes = xml_proposicoes.getroot()
+        for proposicao in proposicoes:
+            url_proposicao = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID?IdProp=%s' % proposicao.find('id').text
+            xml_proposicao = ET.parse(urlopen(url_proposicao))
+            root_proposicao = xml_proposicao.getroot()
+            nome_autor1 = root_proposicao.find('Autor').text
+            if cmp(nome_autor1.upper(), parlamentar.nome) != 0:
+                proposicao = Proposicao()
+                proposicao.numero = root_proposicao.attrib.get('numero')
+                proposicao.ano = root_proposicao.attrib.get('ano')
+                proposicao.id_proposicao = int(root_proposicao.find('idProposicao').text)
+                proposicao.ementa = root_proposicao.find('Ementa').text
+                proposicao.explicacao = root_proposicao.find('ExplicacaoEmenta').text
+                proposicao.autor = parlamentar
+                data = root_proposicao.find('DataApresentacao').text
+                data = data.split('/')
+                data = date(int(data[2]), int(data[1]), int(data[0]))
+                proposicao.data_apresentacao = data.isoformat()
+                proposicao.situacao = root_proposicao.find('Situacao').text
+                proposicao.link_teor = root_proposicao.find('LinkInteiroTeor').text
+                insert_parlamentar_string = """
+                    insert into proposicao
+                    (id, numero, ano, ementa, explicacao, id_autor, data_apresentacao, situacao, link_teor)
+                    values ('%s', "%s", '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+                    """ % (proposicao.id_proposicao, proposicao.numero, proposicao.ano, proposicao.ementa,
+                            proposicao.explicacao, proposicao.autor.id_cadastro, proposicao.data_apresentacao,
+                            proposicao.situacao, proposicao.link_teor)
 
-            cursor.execute(insert_parlamentar_string)
-            db.commit()
+                cursor.execute(insert_parlamentar_string)
+                db.commit()
 
-            num_proposicoes += 1
-    if num_proposicoes > 0:
-        print "Proposições de PL d@ parlamentar", parlamentar.nome, "obtidas :D"
-        print "Proposições de PL encontradas:", num_proposicoes
-        print
-    else:
-        print "Parlamentar sem proposição de PL :'("
-        print
-        sleep(1)
+                num_proposicoes += 1
+                total_proposicoes += 1
+        if num_proposicoes > 0:
+            print "Proposições de", pl, "d@ parlamentar", parlamentar.nome, "obtidas :D"
+            print "Proposições de", pl, "encontradas:", num_proposicoes
+            print
+        else:
+            print "Parlamentar sem proposição de", pl ,":'("
+            print
+            sleep(1)
 
+print
+print
+print "Total de proposições:", total_parlamentares
 db.close()
