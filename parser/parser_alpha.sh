@@ -1,9 +1,9 @@
 #!/bin/bash
 url_deputados=http://www.camara.gov.br/SitCamaraWS/Deputados.asmx/ObterDeputados
+filename='deputados.txt'
 content=$(wget $url_deputados -q -O -)
-deputados=($(echo $content | grep -oP '(?<=nome>)[^<]+'))
+echo $content | grep -oP '(?<=nome>)[^<]+' > $filename
 
-for i in ${!deputados[*]}
-do
-    echo "$i" "${deputados[$i]}"
-done
+while read p; do
+    echo $p
+done <$filename
