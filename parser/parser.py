@@ -6,6 +6,7 @@ import subprocess
 import sys
 from time import sleep
 import xml.etree.ElementTree as ET
+from datetime import date
 import MySQLdb
 
 db_user = str(sys.argv[1])
@@ -68,6 +69,9 @@ url_parlamentares = 'http://www.camara.gov.br/SitCamaraWS/Deputados.asmx/ObterDe
 xml_parlamentares = ET.parse(urlopen(url_parlamentares))
 xml_parlamentares = xml_parlamentares.getroot()
 parlamentares = []
+drop_table_string = "DROP TABLE IF EXISTS proposicao;"
+cursor.execute(drop_table_string)
+db.commit()
 drop_table_string = "DROP TABLE IF EXISTS parlamentar;"
 cursor.execute(drop_table_string)
 db.commit()
@@ -101,7 +105,7 @@ for xml_parlamentar in xml_parlamentares:
     insert_parlamentar_string = """
     insert into parlamentar
     (id, nome, matricula, condicao, url_foto, uf, partido, telefone, email, gabinete)
-    values ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+    values ('%s', "%s", '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
     """ % (parlamentar.id_cadastro, parlamentar.nome, parlamentar.matricula, parlamentar.condicao,
            parlamentar.url_foto, parlamentar.uf, parlamentar.partido, parlamentar.telefone,
            parlamentar.email, parlamentar.gabinete)
@@ -115,6 +119,22 @@ for xml_parlamentar in xml_parlamentares:
 proposicoes = []
 print '-----------------------------------------------------------'
 print
+
+create_table_string = """
+CREATE TABLE proposicao (
+id int not null primary key,
+numero int,
+ano int,
+ementa varchar(255),
+explicacao varchar(1000),
+id_autor int not null,
+data_apresentacao date,
+situacao varchar(255),
+link_teor varchar(100),
+constraint FK_proposicao_id_autor foreign key(id_autor) references parlamentar(id)
+);"""
+cursor.execute(create_table_string)
+db.commit()
 for parlamentar in parlamentares:
     print "Obtendo proposições d@ parlamentar", parlamentar.nome
     nome = remove_acentos(parlamentar.nome)
@@ -141,9 +161,23 @@ for parlamentar in parlamentares:
             proposicao.ementa = root_proposicao.find('Ementa').text
             proposicao.explicacao = root_proposicao.find('ExplicacaoEmenta').text
             proposicao.autor = parlamentar
-            proposicao.data_apresentacao = root_proposicao.find('DataApresentacao').text
+            data = root_proposicao.find('DataApresentacao').text
+            data = data.split('/')
+            data = date(int(data[2]), int(data[1]), int(data[0]))
+            proposicao.data_apresentacao = data.isoformat()
             proposicao.situacao = root_proposicao.find('Situacao').text
             proposicao.link_teor = root_proposicao.find('LinkInteiroTeor').text
+            insert_parlamentar_string = """
+                insert into proposicao
+                (id, numero, ano, ementa, explicacao, id_autor, data_apresentacao, situacao, link_teor)
+                values ('%s', "%s", '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+                """ % (proposicao.id_proposicao, proposicao.numero, proposicao.ano, proposicao.ementa,
+                       proposicao.explicacao, proposicao.autor.id_cadastro, proposicao.data_apresentacao,
+                       proposicao.situacao, proposicao.link_teor)
+
+            cursor.execute(insert_parlamentar_string)
+            db.commit()
+
             num_proposicoes += 1
     if num_proposicoes > 0:
         print "Proposições de PL d@ parlamentar", parlamentar.nome, "obtidas :D"
