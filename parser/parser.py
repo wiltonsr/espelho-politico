@@ -106,7 +106,7 @@ for xml_parlamentar in xml_parlamentares:
     insert_parlamentar_string = """
     insert into parlamentar
     (id, nome, matricula, condicao, url_foto, uf, partido, telefone, email, gabinete)
-    values ('%s', "%s", '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+    values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
     """ % (parlamentar.id_cadastro, parlamentar.nome, parlamentar.matricula, parlamentar.condicao,
            parlamentar.url_foto, parlamentar.uf, parlamentar.partido, parlamentar.telefone,
            parlamentar.email, parlamentar.gabinete)
@@ -166,7 +166,9 @@ for parlamentar in parlamentares:
                 proposicao.ano = root_proposicao.attrib.get('ano')
                 proposicao.id_proposicao = int(root_proposicao.find('idProposicao').text)
                 proposicao.ementa = root_proposicao.find('Ementa').text
+                proposicao.ementa = proposicao.ementa.replace('"', '').replace("'", "")
                 proposicao.explicacao = root_proposicao.find('ExplicacaoEmenta').text
+                proposicao.explicacao = proposicao.explicacao.replace('"', '').replace("'", "")
                 proposicao.autor = parlamentar
                 data = root_proposicao.find('DataApresentacao').text
                 data = data.split('/')
@@ -177,7 +179,7 @@ for parlamentar in parlamentares:
                 insert_parlamentar_string = """
                     insert into proposicao
                     (id, numero, ano, ementa, explicacao, id_autor, data_apresentacao, situacao, link_teor)
-                    values ('%s', "%s", '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+                    values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
                     """ % (proposicao.id_proposicao, proposicao.numero, proposicao.ano, proposicao.ementa,
                             proposicao.explicacao, proposicao.autor.id_cadastro, proposicao.data_apresentacao,
                             proposicao.situacao, proposicao.link_teor)
