@@ -11,15 +11,15 @@ default: &default
 
 development:
   <<: *default
-  database: espelho_politico_development
+  database: ep_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: espelho_politico_test
+  database: ep_test
 
 production:
   <<: *default
-  database: espelho_politico_production
+  database: ep_prod
