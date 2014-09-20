@@ -46,6 +46,7 @@ class Proposicao():
         self.numero = 0
         self.ementa = ""
         self.explicacao = ""
+        self.tema = ""
         self.autor = Parlamentar()
         self.data_apresentacao = ""
         self.situacao = ""
@@ -132,6 +133,7 @@ numero int,
 ano int,
 ementa varchar(255),
 explicacao varchar(1000),
+tema varchar(255),
 id_autor int not null,
 data_apresentacao date,
 situacao varchar(255),
@@ -169,6 +171,7 @@ for parlamentar in parlamentares:
                 proposicao.ementa = proposicao.ementa.replace('"', '').replace("'", "")
                 proposicao.explicacao = root_proposicao.find('ExplicacaoEmenta').text
                 proposicao.explicacao = proposicao.explicacao.replace('"', '').replace("'", "")
+                proposicao.tema = root_proposicao.find('tema').text
                 proposicao.autor = parlamentar
                 data = root_proposicao.find('DataApresentacao').text
                 data = data.split('/')
@@ -178,10 +181,10 @@ for parlamentar in parlamentares:
                 proposicao.link_teor = root_proposicao.find('LinkInteiroTeor').text
                 insert_parlamentar_string = """
                     insert into proposicao
-                    (id, numero, ano, ementa, explicacao, id_autor, data_apresentacao, situacao, link_teor)
-                    values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
+                    (id, numero, ano, ementa, explicacao, tema, id_autor, data_apresentacao, situacao, link_teor)
+                    values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
                     """ % (proposicao.id_proposicao, proposicao.numero, proposicao.ano, proposicao.ementa,
-                            proposicao.explicacao, proposicao.autor.id_cadastro, proposicao.data_apresentacao,
+                            proposicao.explicacao, proposicao.tema, proposicao.autor.id_cadastro, proposicao.data_apresentacao,
                             proposicao.situacao, proposicao.link_teor)
 
                 cursor.execute(insert_parlamentar_string)
