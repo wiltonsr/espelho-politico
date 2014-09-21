@@ -130,12 +130,12 @@ ano int not null,
 ementa varchar(255),
 explicacao varchar(1000),
 tema varchar(255),
-id_autor int not null,
+parlamentar_id int not null,
 data_apresentacao date,
 situacao varchar(255),
 link_teor varchar(100),
-primary key(id, numero, ano, id_autor),
-constraint FK_proposicao_id_autor foreign key(id_autor) references parlamentar(id)
+primary key(id, numero, ano, parlamentar_id),
+constraint FK_proposicao_parlamentar_id foreign key(parlamentar_id) references parlamentar(id)
 );"""
 cursor.execute(create_table_string)
 db.commit()
