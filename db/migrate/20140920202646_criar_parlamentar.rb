@@ -11,5 +11,7 @@ class CriarParlamentar < ActiveRecord::Migration
       t.string  :email
       t.integer :gabinete
     end
+    add_index :parlamentar, :nome
+    add_index :parlamentar, :matricula
   end
 end
