@@ -11,5 +11,10 @@ class CriarProposicao < ActiveRecord::Migration
       t.string       :situacao
       t.string       :link_teor
     end
+    add_index(
+      :proposicao, 
+      [:numero, :ano, :parlamentar_id],
+      unique: true
+    )
   end
 end
