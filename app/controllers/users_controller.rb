@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 	respond_to :html, :json, :xml
 
 	def index
-		@users = User.all;
+		@users = User.all
 	end
 
 	def show
