@@ -1,6 +1,6 @@
 class CreateParliamentarian < ActiveRecord::Migration
   def change
-    create_table :parliamentarian do |t|
+    create_table :parliamentarians do |t|
       t.string  :registry
       t.string  :condition
       t.string  :name
@@ -11,7 +11,7 @@ class CreateParliamentarian < ActiveRecord::Migration
       t.string  :email
       t.integer :cabinet
     end
-    add_index :parliamentarian, :name
-    add_index :parliamentarian, :registry
+    add_index :parliamentarians, :name
+    add_index :parliamentarians, :registry
   end
 end

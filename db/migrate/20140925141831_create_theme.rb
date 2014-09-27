@@ -1,6 +1,7 @@
-class CreateTheme < ActiveRecord::Migrate
+class CreateTheme < ActiveRecord::Migration
   def change
-    create_table :theme do |t|
-    t.string 	:description
+    create_table :themes do |t|
+      t.string  :description
+    end
   end
 end
