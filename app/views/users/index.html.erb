@@ -1,0 +1,44 @@
+<h1>Lista de Usuários<h2>
+<style>
+table {
+    width:100%;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+table#t01 tr:nth-child(even) {
+    background-color: #eee;
+}
+table#t01 tr:nth-child(odd) {
+   background-color:#fff;
+}
+table#t01 th	{
+    background-color: black;
+    color: white;
+}
+</style>
+<table id="t01" style="width: 100%">
+	<tr>
+		<th> Nome </th>
+		<th> Email </th>
+		<th> Nome de Usuário </th>
+		<th colspan="3"></th>
+	</tr>
+<% @users.each do |user| %>
+	<tr>
+	<td><%= user.name %></td>
+	<td><%= user.email %></td>
+	<td><%= user.username %></td>
+	<td><%= link_to 'Exibir', user %></td>
+	<td><%= link_to 'Editar', edit_user_path(user) %></td>
+	<td><%= link_to 'Excluir', user, method: :delete,
+		data: {confirm: 'Tem certeza que deseja excluir o usuário ' + user.name + ' ?' } %></td>
+	</tr>
+<% end %>
+</table>
+<p><%= link_to 'Criar Novo Usuário', new_user_path(@user) %></p>
