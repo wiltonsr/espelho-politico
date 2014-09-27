@@ -5,8 +5,6 @@ class CreateProposition < ActiveRecord::Migration
       t.integer      :number
       t.text         :amendment
       t.text         :explanation
-      t.references   :themes
-      t.references   :parliamentarians
       t.references   :proposition_types
       t.date         :presentation_date
       t.string       :situation
@@ -14,7 +12,7 @@ class CreateProposition < ActiveRecord::Migration
     end
     add_index(
       :propositions,
-      [:number, :year, :parliamentarians_id],
+      [:number, :year],
       unique: true
     )
   end
