@@ -4,7 +4,7 @@ class Parliamentarian(object):
         self.id = 0
         self.registration_number = 0
         self.condition = ""
-        self.namme = ""
+        self.name = ""
         self.photo_url = ""
         self.state = ""
         self.party = ""

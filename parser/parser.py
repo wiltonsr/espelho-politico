@@ -27,13 +27,21 @@ class Parser():
             return
         parliamentarian_root = parliamentarians_et.getroot()
         for parliamentarian_xml in parliamentarian_root:
-            parliamentarian = self.extract_parliamentarian_info(parliamentarian_xml)
+            parliamentarian = self.xml_to_parliamentarian(parliamentarian_xml)
             self.parliamentarians.append(parliamentarian)
 
-    def extract_parliamentarian_info(self, parliamentarian_xml):
+    def xml_to_parliamentarian(self, parliamentarian_xml):
         parliamentarian = Parliamentarian()
         parliamentarian.id = int(self.extract_xml_text(parliamentarian_xml, 'ideCadastro'))
         parliamentarian.registration_number = int(self.extract_xml_text(parliamentarian_xml, 'matricula'))
+        parliamentarian.condition = self.extract_xml_text(parliamentarian_xml, 'condicao')
+        parliamentarian.name = self.extract_xml_text(parliamentarian_xml, 'nomeParlamentar')
+        parliamentarian.photo_url = self.extract_xml_text(parliamentarian_xml, 'urlFoto')
+        parliamentarian.state = self.extract_xml_text(parliamentarian_xml, 'uf')
+        parliamentarian.party = self.extract_xml_text(parliamentarian_xml, 'partido')
+        parliamentarian.telephone = self.extract_xml_text(parliamentarian_xml, 'fone')
+        parliamentarian_xml.email = self.extract_xml_text(parliamentarian_xml, 'email')
+        parliamentarian_xml.office = self.extract_xml_text(parliamentarian_xml, 'gabinete')
 
         return parliamentarian
 
@@ -45,7 +53,6 @@ class Parser():
             self.start_connection(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
         except IndexError:
             self.start_connection(sys.argv[1], sys.argv[2], sys.argv[3])
-
             self.get_cursor()
 
             self.obtain_parliamentarians()
