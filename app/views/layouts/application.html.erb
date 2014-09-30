@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Espelho Político" %></title>
 
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
@@ -12,8 +12,28 @@
   </head>
 
   <body>
+    <nav class="top-bar foundation-bar" data-topbar>
+      <ul class="title-area">
+        <li class="name">
 
-    <%= yield %>
+         <span data-tooltip class="has-tip"><h1 class="show-for-small-only"><a href="#"><%= link_to 'Espelho Político', users_path %></a></h1></span>
+         <span data-tooltip class="has-tip"><h1 class="show-for-medium-only"><a href="#"><%= link_to 'Espelho Político', users_path %></a></h1></span>
+         <span data-tooltip class="has-tip"><h1 class="show-for-large-only"><a href="#"><%= link_to 'Espelho Político', users_path %></a></h1></span>
+        </li>
+      </ul>
+      <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="active"><a  target="_blank"><%= link_to 'Início', users_path %></a></li>
+        <li class="active"><a target="_blank">Rankings</a></li>
+        <li class="active"><a target="_blank">Quiz</a></li>
+        <li class="active"><a target="_blank">Sobre</a></li>
+      </ul>
+    </section>
+  </nav>
+ <%= yield %>
     <%= javascript_include_tag "application" %>
+   
   </body>
+
 </html>
