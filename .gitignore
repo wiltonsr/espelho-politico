@@ -25,3 +25,9 @@ Gemfile.lock
 .rvmrc
 
 config/database.yml
+
+# vim swap files
+*.swp
+
+# python compiled files
+*.pyc
