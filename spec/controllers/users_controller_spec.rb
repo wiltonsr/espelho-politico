@@ -17,14 +17,6 @@ RSpec.describe UsersController, :type => :controller do
     :username => "jose",
     :password_confirmation => "123456"
     }}
-
-  let(:new_attributes) {{
-    :name => "Jailson",
-    :email => "jailson@email.com",
-    :password => "654321",
-    :username => "Jailson",
-    :password_confirmation => "654321"
-    }}
    
    let(:valid_session) {{}}
   
@@ -37,20 +29,27 @@ RSpec.describe UsersController, :type => :controller do
     end
   end
 
-  # describe "PUT update" do
-  #   describe "with new_attributes" do
-  #     it "Update the user informations" do
-  #       expect {
-  #         post :update, {:user => new_attributes}, valid_session}.to change
-  #           (User.find_by_email ("jailson@email.com"), :updated_at)
-  #     end
-  #   end
-  # end
-
-  describe "DELETE destroy" do
-    it "Deletes the selected user" do
-      expect {
-        delete :destroy, {:user => valid_attributes}, valid_session}.to change(User, :count).by(-1)
+  describe "PUT update" do
+    describe "with valid_attributes" do
+    let(:valid_attributes) {{
+    :name => "Jose",
+    :email => "jose@email.com", 
+    :password => "123456",
+    :username => "zejose",
+    :password_confirmation => "123456"
+    }}
+      it "Update the user informations" do
+        user = User.create! valid_attributes
+        put :update, {:id => user.to_param, :user => valid_attributes}
+        user.reload
+      end
     end
   end
+
+#   describe "DELETE destroy" do
+#     it "Deletes the selected user" do
+#       expect {
+#         delete :destroy, {:user => valid_attributes}, valid_session}.to change(User, :count).by(-1)
+#     end
+#   end Ao invés de tentar subtrair um do banco de dados, substituir os valores dos parâmetros por nil e depois disso remover
 end
