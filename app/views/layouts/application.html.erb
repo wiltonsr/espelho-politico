@@ -1,14 +1,46 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>EspelhoPolitico</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<%= yield %>
+    <title><%= content_for?(:title) ? yield(:title) : "Espelho Político" %></title>
 
-</body>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <nav class="top-bar foundation-bar" data-topbar>
+      <ul class="title-area">
+        <li class="name">
+
+         <span data-tooltip class="has-tip"><h1 class="show-for-small-only"><a href="#"><%= link_to 'Espelho Político', users_path %></a></h1></span>
+         <span data-tooltip class="has-tip"><h1 class="show-for-medium-only"><a href="#"><%= link_to 'Espelho Político', users_path %></a></h1></span>
+         <span data-tooltip class="has-tip"><h1 class="show-for-large-only"><a href="#"><%= link_to 'Espelho Político', users_path %></a></h1></span>
+        </li>
+      </ul>
+      <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="active"><a  target="_blank"><%= link_to 'Início', root_url %></a></li>
+        <li class="active"><a  target="_blank"><%= link_to 'Usuários', users_path %></a></li>
+        <li class="active"><a  target="_blank"><%= link_to 'Rankings', rankings_path %></a></li>
+        <li class="active"><a target="_blank">Quiz</a></li>
+        <li class="active"><a target="_blank">Sobre</a></li>
+      </ul>
+    </section>
+  </nav>
+  <div class="row">
+        <div class="large-12 columns">
+            <h2><center><img src="http://brisksys.com/wp-content/uploads/2013/02/banner-web-design.jpg"/></center></h2> 
+            <hr />
+       </div>
+    </div>
+ <%= yield %>
+    <%= javascript_include_tag "application" %>
+   
+  </body>
+
 </html>
