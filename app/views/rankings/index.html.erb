@@ -36,11 +36,11 @@
         </aside>
 
         <div style="width:150px;height:600px;line-height:3em;overflow:scroll;padding:5px;">
-        <ul class="off-canvas-list">
-            <li><label>Foundation</label></li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+          <ul class="off-canvas-list">
+  
+            <% @themes.each do |theme| %>
+            <li><%= theme.description %></li>
+            <% end %>
           </ul> 
         </div>
 
