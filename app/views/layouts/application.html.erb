@@ -26,12 +26,18 @@
       <ul class="right">
         <li class="active"><a  target="_blank"><%= link_to 'Início', root_url %></a></li>
         <li class="active"><a  target="_blank"><%= link_to 'Usuários', users_path %></a></li>
-        <li class="active"><a target="_blank">Rankings</a></li>
+        <li class="active"><a  target="_blank"><%= link_to 'Rankings', rankings_path %></a></li>
         <li class="active"><a target="_blank">Quiz</a></li>
         <li class="active"><a target="_blank">Sobre</a></li>
       </ul>
     </section>
   </nav>
+  <div class="row">
+        <div class="large-12 columns">
+            <h2><center><img src="http://brisksys.com/wp-content/uploads/2013/02/banner-web-design.jpg"/></center></h2> 
+            <hr />
+       </div>
+    </div>
  <%= yield %>
     <%= javascript_include_tag "application" %>
    
