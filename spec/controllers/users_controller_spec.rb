@@ -51,10 +51,11 @@ RSpec.describe UsersController, :type => :controller do
     end
   end
 
-#   describe "DELETE destroy" do
-#     it "Deletes the selected user" do
-#       expect {
-#         delete :destroy, {:user => valid_attributes}, valid_session}.to change(User, :count).by(-1)
-#     end
-#   end Ao invés de tentar subtrair um do banco de dados, substituir os valores dos parâmetros por nil e depois disso remover
+  describe "DELETE destroy" do
+    it "Deletes the selected user" do
+      user = User.create! valid_attributes
+      expect {
+        delete :destroy, {:id => user.to_param}, valid_session}.to change(User, :count).by(-1)
+    end
+  end 
 end
