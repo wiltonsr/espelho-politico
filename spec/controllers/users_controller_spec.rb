@@ -43,6 +43,11 @@ RSpec.describe UsersController, :type => :controller do
         put :update, {:id => user.to_param, :user => valid_attributes}
         user.reload
       end
+      it "Assigns the requested user to be @user" do
+        user = User.create! valid_attributes
+        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
+        expect(assigns(:user)).to eq(user)
+      end
     end
   end
 
