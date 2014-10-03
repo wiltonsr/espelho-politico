@@ -34,6 +34,22 @@ class UsersController < ApplicationController
 		respond_with(@user)
 	end
 
+	def login
+		user = User.find_by_email_user(params[:session][:email_user].downcase)
+		if user && user.authenticate(params[:session][:password])
+			sign_in user
+			redirect_to user
+		else
+			flash[:error] = "E-mail/Senha inválida!]"
+			render 'new'
+		end
+	end
+
+	# def logout
+	# 	sign_out
+	# 	redirect_to root_url
+	# end
+
 	private
 		def set_user
 			@user = User.find(params[:id])

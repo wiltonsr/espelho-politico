@@ -17,15 +17,40 @@ RSpec.describe UsersController, :type => :controller do
     :username => "jose",
     :password_confirmation => "123456"
     }}
+
+  let(:new_attributes) {{
+    :name => "Jailson",
+    :email => "jailson@email.com",
+    :password => "654321",
+    :username => "Jailson",
+    :password_confirmation => "654321"
+    }}
    
    let(:valid_session) {{}}
   
   describe "POST create" do
     describe "with valid_attributes" do
-      it "creates a new user" do
+      it "Creates a new user" do
         expect {
           post :create, {:user => valid_attributes}, valid_session}.to change(User, :count).by(1)
       end
+    end
+  end
+
+  # describe "PUT update" do
+  #   describe "with new_attributes" do
+  #     it "Update the user informations" do
+  #       expect {
+  #         post :update, {:user => new_attributes}, valid_session}.to change
+  #           (User.find_by_email ("jailson@email.com"), :updated_at)
+  #     end
+  #   end
+  # end
+
+  describe "DELETE destroy" do
+    it "Deletes the selected user" do
+      expect {
+        delete :destroy, {:user => valid_attributes}, valid_session}.to change(User, :count).by(-1)
     end
   end
 end

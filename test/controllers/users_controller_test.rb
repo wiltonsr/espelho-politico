@@ -9,13 +9,13 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     post :create, :user=>{
-      :name=>"Ola Mundo", 
-      :email=>"umemail@qualquer.com", 
-      :password=>"abderf", 
-      :password_confirmation=>"abderf", 
-      :username=>"huehueuhe brbr"
+      :name=>"usuario", 
+      :email=>"usuariou@email.com", 
+      :password=>"123456", 
+      :password_confirmation=>"123456", 
+      :username=>"usuario"
     }
 
-    assert_equal "umemail@qualquer.com", User.last.email
+    assert_equal "usuario@email.com", User.last.email
   end
 end
