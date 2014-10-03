@@ -31,13 +31,13 @@ RSpec.describe UsersController, :type => :controller do
 
   describe "PUT update" do
     describe "with valid_attributes" do
-    let(:valid_attributes) {{
-    :name => "Jose",
-    :email => "jose@email.com", 
-    :password => "123456",
-    :username => "zejose",
-    :password_confirmation => "123456"
-    }}
+      let(:valid_attributes) {{
+        :name => "Jose",
+        :email => "jose@email.com", 
+        :password => "123456",
+        :username => "zejose",
+        :password_confirmation => "123456"
+      }}
       it "Update the user informations" do
         user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => valid_attributes}
