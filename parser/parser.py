@@ -1,6 +1,7 @@
+from threading import Thread as thread
 import sys
 import xml.etree.ElementTree as ET
-from urllib2 import urlopen, HTTPError, URLError
+from urllib2 import urlopen, URLError
 from MySQLdb import connect, IntegrityError
 from models.parliamentarian import Parliamentarian
 from models.proposition_type import PropositionType
@@ -29,8 +30,15 @@ class Parser():
             return
         parliamentarian_root = parliamentarians_et.getroot()
         for parliamentarian_xml in parliamentarian_root:
-            parliamentarian = self.xml_to_parliamentarian(parliamentarian_xml)
-            self.parliamentarians.append(parliamentarian)
+            parliamentarian = self.extract_and_save_parliamentarian(parliamentarian_xml)
+
+            self.obtain_all_propositions_from_parliamentarian(parliamentarian)
+
+    def extract_and_save_parliamentarian(self, parliamentarian_xml):
+        parliamentarian = self.xml_to_parliamentarian(parliamentarian_xml)
+        self.parliamentarians.append(parliamentarian)
+
+        return parliamentarian
 
     def xml_to_parliamentarian(self, parliamentarian_xml):
         parliamentarian = Parliamentarian()
@@ -75,6 +83,7 @@ class Parser():
         proposition_types_root = proposition_types_et.getroot()
         for proposition_type_xml in proposition_types_root:
             proposition_type = self.xml_to_proposition_type(proposition_type_xml)
+            self.save_proposition_type(proposition_type)
 
     def xml_to_proposition_type(self, proposition_type_xml):
         proposition_type = PropositionType()
@@ -82,6 +91,34 @@ class Parser():
         proposition_type.description = self.extract_xml_text(proposition_type_xml, 'descricao')
 
         return proposition_type
+
+    def save_proposition_type(self, proposition_type):
+        insert_proposition_type = """
+            insert into proposition_types (acronym, description)
+            values (%s, %s)
+        """ % (proposition_type.acronym, proposition_type.description)
+
+        try:
+            self.cursor.execute(insert_proposition_type)
+            self.connect.commit()
+        except IntegrityError:
+            print "Proposition Type already recorded!"
+            print
+
+    def obtain_all_propositions_from_parliamentarian(self, parliamentarian):
+        propositions_url = "www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=PL&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor=%s&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=" % parliamentarian.remove_accents_from_name().replace(' ', '+')
+        try:
+            propositions_et = ET.parse(urlopen(propositions_url))
+        except URLError:
+            print "There was a problem when trying to open Propositions list"
+            print
+        propositions_root = propositions_et.getroot()
+        for proposition_elem in propositions_root:
+            proposition_id = self.extract_xml_text(proposition_elem, 'id')
+            proposition_url = "http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID?idProp=%s" % proposition_id
+
+
+
 
     def extract_xml_text(self, xml, value):
         return xml.find(value).text
