@@ -2,6 +2,7 @@ import threading
 import sys
 import xml.etree.ElementTree as ET
 from datetime import date as _date
+from time import sleep
 from urllib2 import urlopen, URLError
 from MySQLdb import connect, IntegrityError
 from models.parliamentarian import Parliamentarian
@@ -38,6 +39,7 @@ class Parser():
 
     def extract_and_save_parliamentarian(self, parliamentarian_xml):
         parliamentarian = self.xml_to_parliamentarian(parliamentarian_xml)
+        self.save_parliamentarian(parliamentarian)
         self.parliamentarians.append(parliamentarian)
 
         return parliamentarian
@@ -47,7 +49,7 @@ class Parser():
         parliamentarian.id = self.extract_xml_text(parliamentarian_xml, 'ideCadastro')
         parliamentarian.registry = self.extract_xml_text(parliamentarian_xml, 'matricula')
         parliamentarian.condition = self.extract_xml_text(parliamentarian_xml, 'condicao')
-        parliamentarian.name = self.extract_xml_text(parliamentarian_xml, 'nomeparliamentarian')
+        parliamentarian.name = self.extract_xml_text(parliamentarian_xml, 'nomeParlamentar')
         parliamentarian.photo_url = self.extract_xml_text(parliamentarian_xml, 'urlFoto')
         parliamentarian.state = self.extract_xml_text(parliamentarian_xml, 'uf')
         parliamentarian.party = self.extract_xml_text(parliamentarian_xml, 'partido')
@@ -109,7 +111,7 @@ class Parser():
             print
 
     def obtain_all_propositions_from_parliamentarian(self, parliamentarian):
-        propositions_url = "www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=PL&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor=%s&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=" % parliamentarian.remove_accents_from_name().replace(' ', '+')
+        propositions_url = "http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=PL&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor=%s&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=" % (parliamentarian.remove_accents_from_name().replace(' ', '+'))
         try:
             propositions_et = ET.parse(urlopen(propositions_url))
         except URLError:
@@ -122,6 +124,7 @@ class Parser():
             specific_proposition_et = ET.parse(urlopen(specific_proposition_url))
             specific_proposition_xml = specific_proposition_et.getroot()
             threading.start_new_thread(self.extract_and_save_proposition, (specific_proposition_xml, parliamentarian))
+            sleep(3)
 
     def extract_and_save_proposition(self, proposition_xml, parliamentarian):
         proposition = self.extract_proposition_info(proposition_xml)
