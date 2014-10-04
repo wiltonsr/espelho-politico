@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from urllib2 import urlopen, HTTPError, URLError
 import unicodedata
 import subprocess
@@ -36,7 +34,7 @@ class Parlamentar():
         self.gabinete = 0
 
 
-# Classe para proposições
+# Classe para proposicoes
 class Proposicao():
     def __init__(self):
         self.id_proposicao = 0
@@ -53,7 +51,7 @@ class Proposicao():
 
 def remove_acentos(nome):
     try:
-        # Normaliza nome do parlamentar se não tiver acentos
+        # Normaliza nome do parlamentar se nao tiver acentos
         return unicodedata.normalize('NFKD', unicode (nome, 'utf-8')).encode('ASCII', 'ignore')
     except TypeError:
         # Caso haja acentos, remove-os
@@ -89,7 +87,7 @@ for xml_parlamentar in xml_parlamentares:
         db.commit()
         print "Parlamentar", parlamentar.nome, "encontrad@"
     except IntegrityError:
-        print "Parlamentar", parlamentar.nome, "já cadastrado"
+        print "Parlamentar", parlamentar.nome, "ja cadastrado"
     print
     parlamentares.append(parlamentar)
     total_parlamentares += 1
@@ -107,19 +105,19 @@ tipos_pl = ['PL', 'PLC', 'PLN', 'PLP', 'PLS', 'PLV', 'EAG', 'EMA',
             'EMR', 'EMRP', 'EMS', 'EPP', 'ERD', 'ERD-A', 'ESB',
             'ESP', 'PEC', 'PDS', 'PDN', 'PDC']
 for parlamentar in parlamentares:
-    print "Obtendo proposições d@ parlamentar", parlamentar.nome
+    print "Obtendo proposicoes d@ parlamentar", parlamentar.nome
     nome = remove_acentos(parlamentar.nome)
     for pl in tipos_pl:
         url_proposicoes = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ListarProposicoes?sigla=%s&numero=&ano=&datApresentacaoIni=&datApresentacaoFim=&parteNomeAutor=%s&idTipoAutor=&siglaPartidoAutor=&siglaUFAutor=&generoAutor=&codEstado=&codOrgaoEstado=&emTramitacao=' % (pl, nome.replace(' ', '+'))
         try:
             xml_proposicoes = ET.parse(urlopen(url_proposicoes))
         except HTTPError:
-            print "Parlamentar sem proposição de", pl, ":'("
+            print "Parlamentar sem proposicao de", pl, ":'("
             print
             sleep(1)
             continue
         except URLError:
-            print "Erro de conexão..."
+            print "Erro de conexao..."
             print "Prosseguindo..."
             print
             sleep(120)
@@ -159,21 +157,21 @@ for parlamentar in parlamentares:
                     cursor.execute(insert_proposicao_string)
                     db.commit()
                 except IntegrityError:
-                    print "Proposição '", proposicao.ementa, "' existente no banco de dados."
+                    print "Proposicao '", proposicao.ementa, "' existente no banco de dados."
 
                 num_proposicoes += 1
                 total_proposicoes += 1
         if num_proposicoes > 0:
-            print "Proposições de", pl, "d@ parlamentar", parlamentar.nome, "obtidas :D"
-            print "Proposições de", pl, "encontradas:", num_proposicoes
+            print "Proposicoes de", pl, "d@ parlamentar", parlamentar.nome, "obtidas :D"
+            print "Proposicoes de", pl, "encontradas:", num_proposicoes
             print
         else:
-            print "Parlamentar sem proposição de", pl ,":'("
+            print "Parlamentar sem proposicao de", pl ,":'("
             print
             sleep(1)
         sleep(2)
 
 print
 print
-print "Total de proposições:", total_parlamentares
+print "Total de proposicoes:", total_parlamentares
 db.close()

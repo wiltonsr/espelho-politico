@@ -1,0 +1,33 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <%= pluralize(@user.errors.count, 'erro(s)') %> deve(m) ser corrigido(s):
+
+    <% @user.errors.full_messages.each do |message| %>
+      <p><%= message %></p>
+    <% end %>
+
+  <% end %>
+
+  <div class="field">
+    <p>
+      <%= f.label 'Nome' %>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+    </p>
+    <p>
+    <%= f.label 'Nome de Usuário' %>
+    <%= f.text_field :username %>
+    </p>
+    <p>
+    <%= f.label 'Senha' %>
+    <%= f.password_field :password %>
+    </p>
+    <p>
+    <%= f.label 'Confirmação de Senha' %>
+    <%= f.password_field :password_confirmation %>
+    <p><%= f.submit %></p>
+  </div>
+<% end %>
