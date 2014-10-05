@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<h1> Entrar </h1>
+
+<%= form_for(:session, url: signin_path) do |f| %>
+	<p>
+	<%= f.label 'Nome de Usuário' %>
+	<%= f.text_field :username %>
+	</p>
+	<p>
+	<%= f.label 'Senha' %>
+	<%= f.password_field :password %>
+	</p>
+<p><%= f.submit 'Entrar' %>	</p>
+<% end %>
+<p>Ainda não tem uma conta? <br><%= link_to "Cadastre-se agora!", signup_path %></p>

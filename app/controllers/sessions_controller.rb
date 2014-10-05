@@ -3,18 +3,18 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:session][:username], params[:session][:password])
-
-    if user.nil?
-      flash.now[:error] = "Dados inválidos! Verifique os seus dados e tente novamente."
-      render :new
-    else
+    user = User.find_by(username: params[:session][:username].downcase)
+    if user && user.authenticate(params[:session][:password])
       sign_in user
-      redirect_to_user
-    end
-
-    def destroy
-      sign_out
-      rediret_to_sign_path
+      redirect_to user
+    else
+      flash[:danger] = 'Combinação de senha ou email inválida'
+      render 'new'
     end
   end
+
+  def destroy
+    sign_out
+    redirect_to root_url
+  end
+end
