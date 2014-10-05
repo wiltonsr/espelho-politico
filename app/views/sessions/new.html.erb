@@ -11,6 +11,13 @@
 	<%= f.label 'Senha' %>
 	<%= f.password_field :password %>
 	</p>
+	<p>
+	<%= f.label :remember_me do %>
+		<%= f.check_box :remember_me %>
+		<span> Mantenha-me conectado </span> 
+	<% end %>
+	</p>
+
 <p><%= f.submit 'Entrar' %>	</p>
 <% end %>
 <p>Ainda não tem uma conta? <br><%= link_to "Cadastre-se agora!", signup_path %></p>
