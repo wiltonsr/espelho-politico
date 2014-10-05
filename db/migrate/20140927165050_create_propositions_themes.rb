@@ -1,8 +1,8 @@
 class CreatePropositionsThemes < ActiveRecord::Migration
   def change
-    create_table :propositions_themes do |t|
-      t.belongs_to :propositions
-      t.belongs_to :themes
+    create_join_table :propositions, :themes do |t|
+      t.index :proposition_id
+      t.index :theme_id
     end
   end
 end

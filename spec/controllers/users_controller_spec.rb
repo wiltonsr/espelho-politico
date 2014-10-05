@@ -29,6 +29,13 @@ RSpec.describe UsersController, :type => :controller do
     end
   end
 
+  describe "GET new" do
+    it "Assigns a new user as @user" do
+      get :new, {}, valid_session
+      expect(assigns(:user)).to be_a_new(User)
+    end
+  end
+
   describe "PUT update" do
     describe "with valid_attributes" do
       let(:valid_attributes) {{
