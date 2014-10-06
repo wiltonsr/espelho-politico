@@ -2,17 +2,16 @@ class RankingsController < ApplicationController
   def index
   	@themes = Theme.all
   	@themes = order_themes(@themes)
-  
+    @themes = order_parliamentarians(@themes)
+  end
 
-  @themes.each do |theme|
+  def order_parliamentarians(themes)
+    themes.each do |theme|
     propositions = theme.propositions.to_a
     propositions.sort! {|a,b| a.parliamentarians[0].propositions.count <=> b.parliamentarians[0].propositions.count}
-    puts "=="*100
-    puts theme.propositions[0].parliamentarians[0].propositions.count
-    puts "=="*100
     theme.propositions = propositions
     end
-  end   
+  end
 
   def order_themes(themes)
 		themes  = themes.to_a
