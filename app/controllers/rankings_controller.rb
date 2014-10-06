@@ -2,6 +2,7 @@ class RankingsController < ApplicationController
   def index
   	@themes = Theme.all
   	@themes = order_themes(@themes)
+    @parliamentarian = Parliamentarian.all
   end   
 
   def order_themes(themes)
