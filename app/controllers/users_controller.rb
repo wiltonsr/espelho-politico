@@ -21,9 +21,9 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			sign_in @user			
-			flash[:sucess] = 'Bem vindo ao Espelho Político!'
-			redirect_to @user
+			@user.send_activation_email
+			flash[:info] = 'Por favor, verifique seu email para ativar sua conta'
+			redirect_to root_url
 		else
 			render 'new'
 		end
