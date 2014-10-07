@@ -41,6 +41,13 @@
             <% @themes.each do |theme| %>
             <li><%= theme.description %> <--> <%= theme.propositions.count %></li>
             <% end %>
+            <% @themes.each do |theme| %>
+            <% theme.propositions.each do |proposition| %>
+            <% proposition.parliamentarians.each do |parliamentarian| %>
+            <li><%= parliamentarian.name %> <--> <%= parliamentarian.propositions.count %></li>
+            <% end %>
+            <% end %>
+            <% end %>
           </ul> 
         </div>
 

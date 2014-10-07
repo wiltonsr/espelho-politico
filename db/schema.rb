@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927170251) do
+ActiveRecord::Schema.define(version: 20141004215244) do
 
   create_table "parliamentarians", force: true do |t|
     t.string  "registry"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 20140927170251) do
 
   add_index "parliamentarians", ["name"], name: "index_parliamentarians_on_name", using: :btree
   add_index "parliamentarians", ["registry"], name: "index_parliamentarians_on_registry", using: :btree
+
+  create_table "parliamentarians_propositions", id: false, force: true do |t|
+    t.integer "parliamentarian_id", null: false
+    t.integer "proposition_id",     null: false
+  end
+
+  add_index "parliamentarians_propositions", ["parliamentarian_id"], name: "index_parliamentarians_propositions_on_parliamentarian_id", using: :btree
+  add_index "parliamentarians_propositions", ["proposition_id"], name: "index_parliamentarians_propositions_on_proposition_id", using: :btree
+
+  create_table "parliamentarians_themes", id: false, force: true do |t|
+    t.integer "theme_id",           null: false
+    t.integer "parliamentarian_id", null: false
+  end
 
   create_table "proposition_types", force: true do |t|
     t.string "acronym"
@@ -46,15 +59,13 @@ ActiveRecord::Schema.define(version: 20140927170251) do
 
   add_index "propositions", ["number", "year"], name: "index_propositions_on_number_and_year", unique: true, using: :btree
 
-  create_table "propositions_parliamentarians", force: true do |t|
-    t.integer "propositions_id"
-    t.integer "parliamentarians_id"
+  create_table "propositions_themes", id: false, force: true do |t|
+    t.integer "proposition_id", null: false
+    t.integer "theme_id",       null: false
   end
 
-  create_table "propositions_themes", force: true do |t|
-    t.integer "propositions_id"
-    t.integer "themes_id"
-  end
+  add_index "propositions_themes", ["proposition_id"], name: "index_propositions_themes_on_proposition_id", using: :btree
+  add_index "propositions_themes", ["theme_id"], name: "index_propositions_themes_on_theme_id", using: :btree
 
   create_table "themes", force: true do |t|
     t.string "description"
@@ -67,6 +78,7 @@ ActiveRecord::Schema.define(version: 20140927170251) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
+    t.string   "remember_digest"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
