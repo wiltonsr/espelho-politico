@@ -2,7 +2,6 @@
 
 from urllib2 import urlopen, HTTPError, URLError
 import unicodedata
-import subprocess
 import sys
 from time import sleep
 import xml.etree.ElementTree as ET
@@ -79,7 +78,7 @@ for xml_parlamentar in xml_parlamentares:
     parlamentar.gabinete = int(xml_parlamentar.find('gabinete').text)
     insert_parlamentar_string = """
     insert into parlamentar
-    (id, nome, matricula, condicao, url_foto, uf, partido, telefone, email, gabinete)
+    (id, name, registry, condition, photo_url, state, party, telephone, email, cabinet)
     values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
     """ % (parlamentar.id_cadastro, parlamentar.nome, parlamentar.matricula, parlamentar.condicao,
            parlamentar.url_foto, parlamentar.uf, parlamentar.partido, parlamentar.telefone,
@@ -177,4 +176,3 @@ print
 print
 print "Total de proposições:", total_parlamentares
 db.close()
-
