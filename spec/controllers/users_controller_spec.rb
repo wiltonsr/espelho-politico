@@ -29,6 +29,15 @@ RSpec.describe UsersController, :type => :controller do
     end
   end
 
+  describe "POST create" do
+    describe "with invalid_attributes" do
+      it "doesn`t create a new user" do
+        expect {
+          post :create, {:user => invalid_attributes}, valid_session}.to change(User, :count).by(0)
+      end
+    end
+  end
+
   describe "GET new" do
     it "Assigns a new user as @user" do
       get :new, {}, valid_session
