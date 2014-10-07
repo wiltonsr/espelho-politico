@@ -2,6 +2,8 @@ class UsersController < ApplicationController
 	before_action :set_user, only: [:show, :edit, :update, :destroy]
 	respond_to :html, :json, :xml
 
+# :nocov:
+
 	def index
 		@users = User.all
 	end
@@ -9,6 +11,8 @@ class UsersController < ApplicationController
 	def show
 		@user = User.find(params[:id])
 	end
+
+# :nocov:
 
 	def new
 		@user = User.new
@@ -40,9 +44,13 @@ class UsersController < ApplicationController
 		respond_with(@user)
 	end
 
+# :nocov:
+
 	def authenticate
 		@user = User.find(params[:id])
 	end
+
+# :nocov:
 
 	private
 		def set_user
