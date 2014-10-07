@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		@user = User.find(params[:id])
 	end
 
 	def new
@@ -18,8 +19,13 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(user_params)
-		flash[:notice] = 'Usuário criado com sucesso!' if @user.save
-		respond_with(@user)
+		if @user.save
+			sign_in @user			
+			flash[:sucess] = 'Bem vindo ao Espelho Político!'
+			redirect_to @user
+		else
+			render 'new'
+		end
 	end
 
 	def update
@@ -30,8 +36,12 @@ class UsersController < ApplicationController
 
 	def destroy
 		@user.destroy
-		flash[:notice] = 'Usuário foi excluído com sucesso'
+		flash.now[:notice] = 'Usuário foi excluído com sucesso!'
 		respond_with(@user)
+	end
+
+	def authenticate
+		@user = User.find(params[:id])
 	end
 
 	private
