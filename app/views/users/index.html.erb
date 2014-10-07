@@ -30,15 +30,7 @@ table#t01 th	{
 		<th colspan="3"></th>
 	</tr>
 <% @users.each do |user| %>
-	<tr>
-	<td><%= user.name %></td>
-	<td><%= user.email %></td>
-	<td><%= user.username %></td>
-	<td><%= link_to 'Exibir', user %></td>
-	<td><%= link_to 'Editar', edit_user_path(user) %></td>
-	<td><%= link_to 'Excluir', user, method: :delete,
-		data: {confirm: 'Tem certeza que deseja excluir o usuário ' + user.name + ' ?' } %></td>
-	</tr>
+	<tr><%= render user %></tr>
 <% end %>
 </table>
 <p href="#" class="button secondary expand"><%= link_to 'Criar Novo Usuário', new_user_path(@user) %></p>
