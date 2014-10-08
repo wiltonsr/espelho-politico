@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	attr_accessor :remember_token, :activation_token
+	attr_accessor :remember_token, :activation_token, :reset_token
 	before_save :downcase_email_and_username
 	before_create :create_activation_digest
 	has_secure_password
@@ -59,6 +59,23 @@ class User < ActiveRecord::Base
 	# Envia o email de ativação da conta
 	def send_activation_email
 		UserMailer.account_activation(self).deliver
+	end
+
+	# Define os atributos da redefinição de senha
+	def create_reset_digest
+		self.reset_token = User.new_token
+		update_attribute(:reset_digest, User.digest(reset_token))
+		update_attribute(:reset_sent_at, Time.zone.now)
+	end
+
+	# Envia o email de redefinição de senha
+	def send_password_reset_email
+		UserMailer.password_reset(self).deliver
+	end
+
+	# Retorna verdadeiro se o tempo para redefinição de senha expirou
+	def password_reset_expired?
+		reset_sent_at < 2.hours.ago
 	end
 
 	private
