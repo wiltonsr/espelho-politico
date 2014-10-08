@@ -45,3 +45,5 @@ gem 'foundation-rails'
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
 end
+
+gem 'simplecov', :require => false, :group => :test
