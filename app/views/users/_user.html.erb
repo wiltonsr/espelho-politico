@@ -1,0 +1,12 @@
+<td><%= user.name %></td>
+<td><%= user.email %></td>
+<td><%= user.username %></td>
+<td><%= link_to 'Exibir', user %></td>
+<td><%= link_to 'Editar', edit_user_path(user) %></td>
+
+<% if current_user.admin? && !current_user?(user) %>
+	<td>
+		<%= link_to 'Excluir', user, method: :delete, 
+			data: {confirm: 'Tem certeza que deseja excluir o usuário ' + user.name + ' ?' } %>
+	</td>
+<% end %>
