@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141004215244) do
+ActiveRecord::Schema.define(version: 20141007233636) do
 
   create_table "parliamentarians", force: true do |t|
     t.string  "registry"
@@ -29,17 +29,12 @@ ActiveRecord::Schema.define(version: 20141004215244) do
   add_index "parliamentarians", ["registry"], name: "index_parliamentarians_on_registry", using: :btree
 
   create_table "parliamentarians_propositions", id: false, force: true do |t|
-    t.integer "parliamentarian_id", null: false
     t.integer "proposition_id",     null: false
+    t.integer "parliamentarian_id", null: false
   end
 
   add_index "parliamentarians_propositions", ["parliamentarian_id"], name: "index_parliamentarians_propositions_on_parliamentarian_id", using: :btree
   add_index "parliamentarians_propositions", ["proposition_id"], name: "index_parliamentarians_propositions_on_proposition_id", using: :btree
-
-  create_table "parliamentarians_themes", id: false, force: true do |t|
-    t.integer "theme_id",           null: false
-    t.integer "parliamentarian_id", null: false
-  end
 
   create_table "proposition_types", force: true do |t|
     t.string "acronym"
@@ -79,6 +74,12 @@ ActiveRecord::Schema.define(version: 20141004215244) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_digest"
+    t.boolean  "admin",             default: false
+    t.string   "activation_digest"
+    t.boolean  "activated",         default: false
+    t.datetime "activated_at"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
