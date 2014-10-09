@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-	attr_accessor :remember_token
+	attr_accessor :remember_token, :activation_token
+	before_save :downcase_email_and_username
+	before_create :create_activation_digest
 	has_secure_password
 
 	validates_presence_of :name, :email, :username, :password, message: 'Campo obrigatório'
@@ -17,6 +19,7 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of [:email, :username], case_sensitive: false
 
 	# Retorna o hash da string fornecida.
+	# :nocov:
   def User.digest(string)
     if cost = ActiveModel::SecurePassword.min_cost
     	BCrypt::Engine::MIN_COST
@@ -38,12 +41,38 @@ class User < ActiveRecord::Base
 	end
 
 	# Retorna verdadeiro se o token fornecido corresponde com o digest
-	def authenticated?(remember_token)
-		BCrypt::Password.new(remember_digest).is_password?(remember_token)
+	def authenticated?(attribute, token)
+		digest = send("#{attribute}_digest")
+		BCrypt::Password.new(digest).is_password?(token)
 	end
 
 	# Esquece o usuário
 	def forget
 		update_attribute(:remember_digest, nil)
 	end
+
+	# Ativa uma conta
+	def activate
+		update_attribute(:activated, true)
+		update_attribute(:activated_at, Time.zone.now)
+	end
+
+	# Envia o email de ativação da conta
+	def send_activation_email
+		UserMailer.account_activation(self).deliver
+	end
+
+	private
+			# Converte o email para caixa baixa
+		def downcase_email_and_username
+			self.email = email.downcase
+			self.username = username.downcase
+		end
+
+		# Cria e assina a atribui o token e digest de ativação
+		def create_activation_digest
+			self.activation_token = User.new_token
+			self.activation_digest = User.digest(activation_token)
+		end
+	# :nocov:
 end

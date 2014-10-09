@@ -9,23 +9,18 @@
             </li>
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
           </ul>
-
           <section class="top-bar-section">
             <!-- Right Nav Section -->
           </section>
         </nav>
-
         <nav class="tab-bar show-for-small">
           <section class="left-small">
             <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
           </section>
-
           <section class="middle tab-bar-section">
             <h1 class="title">Offcanvas for Small</h1>
           </section>
-
         </nav>
-
         <aside class="left-off-canvas-menu">
           <ul class="off-canvas-list">
             <li><label>Foundation</label></li>
@@ -34,27 +29,23 @@
             <li><a href="#">Contact</a></li>
           </ul>
         </aside>
-
         <div style="width:150px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
-          <ul class="off-canvas-list">
-  
-            <% @themes.each do |theme| %>
-            <li><%= theme.description %> <--> <%= theme.propositions.count %></li>
-            <% end %>
-            <% @themes.each do |theme| %>
-            <% theme.propositions.each do |proposition| %>
-            <% proposition.parliamentarians.each do |parliamentarian| %>
-            <li><%= parliamentarian.name %> <--> <%= parliamentarian.propositions.count %></li>
-            <% end %>
-            <% end %>
-            <% end %>
+         <ul class="off-canvas-list">  
+            <% @results.each do |row| %>
+            <li><%= puts row["the.description"]%></li>
+             <% end %>
           </ul> 
         </div>
-
-
-      <a class="exit-off-canvas"></a>
-
-      </div>
-    </div>
-  </div>
+        <div style="width:150px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
+          <ul class="off-canvas-list">  
+             <% @themes.each do |theme| %>            
+            <li><%= theme.description %> <--> <%= theme.propositions.count %></li>
+             <% end %>
+           </ul> 
+         </div>
+       <a class="exit-off-canvas"></a>
+       </div>
+     </div>
+   </div>
 </div>
+   
