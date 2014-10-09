@@ -32,14 +32,14 @@ ActiveRecord::Schema.define(version: 20141004215244) do
     t.integer "parliamentarian_id", null: false
     t.integer "proposition_id",     null: false
   end
-
-  add_index "parliamentarians_propositions", ["parliamentarian_id"], name: "index_parliamentarians_propositions_on_parliamentarian_id", using: :btree
-  add_index "parliamentarians_propositions", ["proposition_id"], name: "index_parliamentarians_propositions_on_proposition_id", using: :btree
-
+  
   create_table "parliamentarians_themes", id: false, force: true do |t|
     t.integer "theme_id",           null: false
     t.integer "parliamentarian_id", null: false
   end
+
+  add_index "parliamentarians_propositions", ["parliamentarian_id"], name: "index_parliamentarians_propositions_on_parliamentarian_id", using: :btree
+  add_index "parliamentarians_propositions", ["proposition_id"], name: "index_parliamentarians_propositions_on_proposition_id", using: :btree
 
   create_table "proposition_types", force: true do |t|
     t.string "acronym"

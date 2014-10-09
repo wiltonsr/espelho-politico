@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of [:email, :username], case_sensitive: false
 
 	# Retorna o hash da string fornecida.
+	# :nocov:
   def User.digest(string)
     if cost = ActiveModel::SecurePassword.min_cost
     	BCrypt::Engine::MIN_COST
@@ -73,4 +74,5 @@ class User < ActiveRecord::Base
 			self.activation_token = User.new_token
 			self.activation_digest = User.digest(activation_token)
 		end
+	# :nocov:
 end
