@@ -160,10 +160,10 @@ for parlamentar in parlamentares:
                 proposicao.link_teor = root_proposicao.find('LinkInteiroTeor').text
                 insert_proposicao_string = """
                     insert into propositions
-                    values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
+                    values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
                     """ % (proposicao.id_proposicao, proposicao.ano, proposicao.numero, proposicao.ementa,
                             proposicao.explicacao, pl, proposicao.data_apresentacao,
-                            proposicao.situacao, proposicao.link_teor)
+                            proposicao.situacao, proposicao.link_teor, parlamentar.id_cadastro)
                 try:
                     cursor.execute(insert_proposicao_string)
                     db.commit()
