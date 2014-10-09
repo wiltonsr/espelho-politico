@@ -1,10 +1,22 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
-    <%= pluralize(@user.errors.count, 'erro(s)') %> deve(m) ser corrigido(s):
 
-    <% @user.errors.full_messages.each do |message| %>
-      <p><%= message %></p>
-    <% end %>
+   <div id="message" class="reveal-modal medium open" data-reveal="" style="visibility: visible; display: block; opacity: 1;">
+
+    <div class="flex-video widescreen vimeo" style="display: block;">
+      <%= pluralize(@user.errors.count, 'erro(s)') %> deve(m) ser corrigido(s):
+      <% @user.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+      <% end %>
+    </div>
+
+    <a class="close-reveal-modal">&#215;</a>
+  </div>
+
+  <script src="../js/vendor/jquery.js"></script>
+  <script src="../js/foundation/foundation.js"></script>
+  <script src="../js/foundation/foundation.reveal.js"></script>
+  <script> $(document).foundation(); </script>
 
   <% end %>
 
