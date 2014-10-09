@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from urllib2 import urlopen, HTTPError, URLError
-import unicodedata
 import sys
-from time import sleep
 import xml.etree.ElementTree as ET
 from datetime import date
+from time import sleep
+from urllib2 import HTTPError, URLError, urlopen
+
 import MySQLdb
-from MySQLdb import IntegrityError
+import unicodedata
 
 db_name = str(sys.argv[1])
 
@@ -19,6 +19,7 @@ except IndexError:
 
 db = MySQLdb.connect("localhost", db_user, db_pwd, db_name)
 cursor = db.cursor()
+
 
 # Classe para parlamentar
 class Parlamentar():
@@ -77,8 +78,7 @@ for xml_parlamentar in xml_parlamentares:
     parlamentar.email = xml_parlamentar.find('email').text
     parlamentar.gabinete = int(xml_parlamentar.find('gabinete').text)
     insert_parlamentar_string = """
-    insert into parlamentar
-    (id, name, registry, condition, photo_url, state, party, telephone, email, cabinet)
+    insert into parliamentarians
     values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
     """ % (parlamentar.id_cadastro, parlamentar.nome, parlamentar.matricula, parlamentar.condicao,
            parlamentar.url_foto, parlamentar.uf, parlamentar.partido, parlamentar.telefone,
@@ -87,7 +87,7 @@ for xml_parlamentar in xml_parlamentares:
         cursor.execute(insert_parlamentar_string)
         db.commit()
         print "Parlamentar", parlamentar.nome, "encontrad@"
-    except IntegrityError:
+    except MySQLdb.IntegrityError:
         print "Parlamentar", parlamentar.nome, "já cadastrado"
     print
     parlamentares.append(parlamentar)
@@ -99,12 +99,13 @@ print "Total de parlamentares:", total_parlamentares
 proposicoes = []
 print '-----------------------------------------------------------'
 print
-
+sleep(2)
 total_proposicoes = 0
 tipos_pl = ['PL', 'PLC', 'PLN', 'PLP', 'PLS', 'PLV', 'EAG', 'EMA',
             'EMC', 'EMC-A', 'EMD', 'EML', 'EMO', 'EMP', 'EMPV',
             'EMR', 'EMRP', 'EMS', 'EPP', 'ERD', 'ERD-A', 'ESB',
             'ESP', 'PEC', 'PDS', 'PDN', 'PDC']
+
 for parlamentar in parlamentares:
     print "Obtendo proposições d@ parlamentar", parlamentar.nome
     nome = remove_acentos(parlamentar.nome)
@@ -115,7 +116,6 @@ for parlamentar in parlamentares:
         except HTTPError:
             print "Parlamentar sem proposição de", pl, ":'("
             print
-            sleep(1)
             continue
         except URLError:
             print "Erro de conexão..."
@@ -130,7 +130,8 @@ for parlamentar in parlamentares:
             xml_proposicao = ET.parse(urlopen(url_proposicao))
             root_proposicao = xml_proposicao.getroot()
             nome_autor1 = root_proposicao.find('Autor').text
-            if cmp(nome_autor1.upper(), parlamentar.nome) != 0:
+            temas = root_proposicao.find('tema').text
+            if cmp(nome_autor1.upper(), parlamentar.nome) != 0 and len(temas.strip()) != 0:
                 proposicao = Proposicao()
                 proposicao.numero = root_proposicao.attrib.get('numero')
                 proposicao.ano = root_proposicao.attrib.get('ano')
@@ -139,7 +140,17 @@ for parlamentar in parlamentares:
                 proposicao.ementa = proposicao.ementa.replace('"', '').replace("'", "")
                 proposicao.explicacao = root_proposicao.find('ExplicacaoEmenta').text
                 proposicao.explicacao = proposicao.explicacao.replace('"', '').replace("'", "")
-                proposicao.tema = root_proposicao.find('tema').text
+                for tema in temas.split(';'):
+                    insert_theme = """
+                        insert into themes
+                        (description)
+                        values ("%s")
+                    """ % (tema.strip())
+                    try:
+                        cursor.execute(insert_theme)
+                        db.commit()
+                    except MySQLdb.IntegrityError:
+                        print "Tema já cadastrado"
                 proposicao.autor = parlamentar
                 data = root_proposicao.find('DataApresentacao').text
                 data = data.split('/')
@@ -148,18 +159,38 @@ for parlamentar in parlamentares:
                 proposicao.situacao = root_proposicao.find('Situacao').text
                 proposicao.link_teor = root_proposicao.find('LinkInteiroTeor').text
                 insert_proposicao_string = """
-                    insert into proposicao
-                    (id, numero, ano, ementa, explicacao, tema, parlamentar_id, data_apresentacao, situacao, link_teor)
-                    values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
-                    """ % (proposicao.id_proposicao, proposicao.numero, proposicao.ano, proposicao.ementa,
-                            proposicao.explicacao, proposicao.tema, proposicao.autor.id_cadastro, proposicao.data_apresentacao,
+                    insert into propositions
+                    values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
+                    """ % (proposicao.id_proposicao, proposicao.ano, proposicao.numero, proposicao.ementa,
+                            proposicao.explicacao, pl, proposicao.data_apresentacao,
                             proposicao.situacao, proposicao.link_teor)
                 try:
                     cursor.execute(insert_proposicao_string)
                     db.commit()
-                except IntegrityError:
+                except MySQLdb.IntegrityError:
                     print "Proposição '", proposicao.ementa, "' existente no banco de dados."
 
+                for tema in temas.split(';'):
+                    try:
+                        get_theme_id="""
+                          select id from themes
+                          where description like "%s"
+                        """ % (tema.strip())
+                        cursor.execute(get_theme_id)
+                        res = cursor.fetchall()
+                        theme_id = int(res[0][0])
+                        insert_propositions_themes = """
+                          insert into propositions_themes
+                          values ("%s", "%s")
+                        """ % (proposicao.id_proposicao, theme_id)
+                        cursor.execute(insert_propositions_themes)
+                        db.commit()
+                    except MySQLdb.IntegrityError:
+                        print "Relacionamento Tema-Proposição já existente"
+                        print
+                    except IndexError:
+                        print "Erro ao recuperar tema"
+                        print
                 num_proposicoes += 1
                 total_proposicoes += 1
         if num_proposicoes > 0:
@@ -169,8 +200,7 @@ for parlamentar in parlamentares:
         else:
             print "Parlamentar sem proposição de", pl ,":'("
             print
-            sleep(1)
-        sleep(2)
+        sleep(5)
 
 print
 print
