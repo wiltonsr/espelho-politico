@@ -3,5 +3,10 @@ class CreateTheme < ActiveRecord::Migration
     create_table :themes do |t|
       t.string  :description
     end
+    add_index(
+      :themes,
+      [:description],
+      unique: true
+    )
   end
 end
