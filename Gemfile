@@ -45,5 +45,8 @@ gem 'foundation-rails'
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
 end
+# Gem Simplecov
+group :coverage do
+  gem 'simplecov', :require => false
+end
 
-gem 'simplecov', :require => false, :group => :test

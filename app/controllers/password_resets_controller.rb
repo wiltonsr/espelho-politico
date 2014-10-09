@@ -21,7 +21,6 @@ class PasswordResetsController < ApplicationController
 	end
 
 	def update
-		@user = User.find(29)
     if @user.password_reset_expired?
       flash[:danger] = "O tempo para redefinição de senha expirou"
       redirect_to new_password_reset_path

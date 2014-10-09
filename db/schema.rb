@@ -29,30 +29,25 @@ ActiveRecord::Schema.define(version: 20141007233636) do
   add_index "parliamentarians", ["registry"], name: "index_parliamentarians_on_registry", using: :btree
 
   create_table "parliamentarians_propositions", id: false, force: true do |t|
-    t.integer "proposition_id",     null: false
     t.integer "parliamentarian_id", null: false
+    t.integer "proposition_id",     null: false
   end
 
   add_index "parliamentarians_propositions", ["parliamentarian_id"], name: "index_parliamentarians_propositions_on_parliamentarian_id", using: :btree
   add_index "parliamentarians_propositions", ["proposition_id"], name: "index_parliamentarians_propositions_on_proposition_id", using: :btree
-
-  create_table "proposition_types", force: true do |t|
-    t.string "acronym"
-    t.string "description"
-  end
 
   create_table "propositions", force: true do |t|
     t.integer "year"
     t.integer "number"
     t.text    "amendment"
     t.text    "explanation"
-    t.integer "proposition_types_id"
+    t.string  "proposition_types"
     t.date    "presentation_date"
     t.string  "situation"
     t.string  "content_link"
   end
 
-  add_index "propositions", ["number", "year"], name: "index_propositions_on_number_and_year", unique: true, using: :btree
+  add_index "propositions", ["number", "year", "proposition_types"], name: "index_propositions_on_number_and_year_and_proposition_types", unique: true, using: :btree
 
   create_table "propositions_themes", id: false, force: true do |t|
     t.integer "proposition_id", null: false
