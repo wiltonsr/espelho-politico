@@ -6,7 +6,14 @@
           <ul class="title-area">
             <li class="name">
               <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
-            </li>
+            </li>            
+            <div style="width:250px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
+          <ul class="off-canvas-list">  
+             <% @themes.each do |theme| %>            
+            <li><%= theme.description %> <--> <%= theme.propositions.count %></li>
+             <% end %>
+           </ul> 
+         </div>
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
           </ul>
           <section class="top-bar-section">
@@ -28,21 +35,14 @@
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
-        </aside>
-        <div style="width:150px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
+        </aside>      
+        <div style="width:583px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
          <ul class="off-canvas-list">  
             <% @results.each do |row| %>
             <li><%= puts row["the.description"]%></li>
              <% end %>
           </ul> 
         </div>
-        <div style="width:150px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
-          <ul class="off-canvas-list">  
-             <% @themes.each do |theme| %>            
-            <li><%= theme.description %> <--> <%= theme.propositions.count %></li>
-             <% end %>
-           </ul> 
-         </div>
        <a class="exit-off-canvas"></a>
        </div>
      </div>
