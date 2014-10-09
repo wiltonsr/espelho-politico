@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<h1> Esqueci a senha </h1>
+
+<%= form_for(:password_resets, url: password_resets_path) do |f| %>
+	<p>
+	<%= f.label :email %>
+  <%= f.text_field :email %>
+	<p>
+	<p><%= f.submit 'Enviar' %>	</p>
+<% end %>

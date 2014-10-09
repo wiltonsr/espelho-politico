@@ -1,0 +1,12 @@
+<h1> Redefinir Senha </h1>
+<%= form_for @user, url: password_reset_path do |f| %>
+	<%= hidden_field_tag :email, @user.email %>
+
+  <%= f.label :password, "Senha" %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmation, "Confirmação de Senha" %>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.submit "Atualizar Senha" %>
+<% end %>

@@ -80,7 +80,7 @@ for xml_parlamentar in xml_parlamentares:
     insert_parlamentar_string = """
     insert into parliamentarians
     values ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s")
-    """ % (parlamentar.id_cadastro, parlamentar.nome, parlamentar.matricula, parlamentar.condicao,
+    """ % (parlamentar.id_cadastro, parlamentar.matricula, parlamentar.condicao, parlamentar.nome,
            parlamentar.url_foto, parlamentar.uf, parlamentar.partido, parlamentar.telefone,
            parlamentar.email, parlamentar.gabinete)
     try:
