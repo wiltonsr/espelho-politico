@@ -5,4 +5,9 @@ class UserMailer < ActionMailer::Base
 		@user = user
 		mail(to: @user.email, subject: "Verificação de Conta do Espelho Político")
 	end
+
+	def password_reset(user)
+		@user = user
+		mail(to: @user.email, subject: "Redefinição de senha")
+	end
 end
