@@ -1,7 +1,8 @@
 class RankingsController < ApplicationController
   def index
-  	@themes = Theme.all
+    @themes = Theme.all
     parliamentarians = Parliamentarian.all
+    @themes = order_themes(@themes)
 
     parliamentarians.each do |parliamentarian|
       @themes.each do |theme|
