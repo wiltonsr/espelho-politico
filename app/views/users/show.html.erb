@@ -1,13 +1,7 @@
 <h1>Informações do usuário</h1>
 
-<% if flash.any? %>
-  <div data-sucess class="alert-box alert radious">
-    <% flash.each do |name, msg| -%>
-      <%= content_tag :div, msg, class: name %>
-    <% end -%>
-    <a href="#" class="close">&times;</a>
-  </div>
-<% end %>
+<%= render 'shared/show_flashes' %>
+
 
 <p> Nome: <%= @user.name %> </p>
 <p> Email: <%= @user.email %> </p>
