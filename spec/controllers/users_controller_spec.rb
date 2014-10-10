@@ -73,6 +73,7 @@ RSpec.describe UsersController, :type => :controller do
         expect(assigns(:user)).to eq(user)
       end
       it "redirects to the users" do
+        user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => valid_attributes}, valid_session  
         response.should redirect_to(users_path)
       end 
@@ -86,6 +87,7 @@ RSpec.describe UsersController, :type => :controller do
         delete :destroy, {:id => user.to_param}, valid_session}.to change(User, :count).by(-1)
     end
     it "redirects to the users" do
+      user = User.create! valid_attributes
       delete :destroy, {:id => user.to_param}, valid_session
       response.should redirect_to(users_path)
     end 
