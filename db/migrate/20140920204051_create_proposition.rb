@@ -9,6 +9,7 @@ class CreateProposition < ActiveRecord::Migration
       t.date         :presentation_date
       t.string       :situation
       t.string       :content_link
+      t.belongs_to   :parliamentarian
     end
     add_index(
       :propositions,
