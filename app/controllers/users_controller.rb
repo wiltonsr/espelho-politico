@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
 	def update
 		@user.update(user_params)
-		flash[:notice] = 'Usuário atualizado com sucesso!' if @user.save
+		flash[:sucess] = 'Usuário atualizado com sucesso!' if @user.save
 		respond_with(@user)
 	end
 
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 		def signed_in_user
 			unless signed_in?
 				store_location
-				flash[:danger] = "Por favor, entre na sua conta"
+				flash[:info] = "Por favor, entre na sua conta"
 				redirect_to signin_url
 			end
 		end
