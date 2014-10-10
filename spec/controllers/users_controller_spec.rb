@@ -19,20 +19,28 @@ RSpec.describe UsersController, :type => :controller do
     }}
    
    let(:valid_session) {{}}
-  
-  describe "POST create" do
-    describe "with valid_attributes" do
-      it "Creates a new user" do
-        expect {
+
+   describe "POST create" do
+    context "with valid attributes" do
+      it "saves the new user" do
+        expect{
           post :create, {:user => valid_attributes}, valid_session}.to change(User, :count).by(1)
       end
+      it "send an confirmation email" do
+        post :create, {:user => valid_attributes}, valid_session  
+        response.should send_activation_email
+      end
+      it "redirects to the root" do
+        post :create, {:user => valid_attributes}, valid_session  
+        response.should redirect_to(root_path)
+      end        
     end
   end
 
   describe "POST create" do
     describe "with invalid_attributes" do
-      it "doesn`t create a new user" do
-        expect {
+      it "doesn't creates a new user" do
+        expect{
           post :create, {:user => invalid_attributes}, valid_session}.to change(User, :count).by(0)
       end
     end
@@ -54,24 +62,34 @@ RSpec.describe UsersController, :type => :controller do
         :username => "zejose",
         :password_confirmation => "123456"
       }}
-      it "Update the user informations" do
+      it "update the user informations" do
         user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => valid_attributes}
         user.reload
       end
-      it "Assigns the requested user to be @user" do
+      it "assigns the requested user to be @user" do
         user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
         expect(assigns(:user)).to eq(user)
       end
+      it "redirects to the users" do
+        user = User.create! valid_attributes
+        put :update, {:id => user.to_param, :user => valid_attributes}, valid_session  
+        response.should redirect_to(users_path)
+      end 
     end
   end
 
   describe "DELETE destroy" do
-    it "Deletes the selected user" do
+    it "deletes the current user" do
       user = User.create! valid_attributes
       expect {
         delete :destroy, {:id => user.to_param}, valid_session}.to change(User, :count).by(-1)
     end
+    it "redirects to the users" do
+      user = User.create! valid_attributes
+      delete :destroy, {:id => user.to_param}, valid_session
+      response.should redirect_to(users_path)
+    end 
   end 
 end
