@@ -127,7 +127,13 @@ for parlamentar in parlamentares:
         proposicoes = xml_proposicoes.getroot()
         for proposicao in proposicoes:
             url_proposicao = 'http://www.camara.gov.br/SitCamaraWS/Proposicoes.asmx/ObterProposicaoPorID?IdProp=%s' % proposicao.find('id').text
-            xml_proposicao = ET.parse(urlopen(url_proposicao))
+            try:
+                xml_proposicao = ET.parse(urlopen(url_proposicao))
+            except URLError:
+                print "Erro ao abrir URL"
+                print
+                sleep(3)
+                continue
             root_proposicao = xml_proposicao.getroot()
             nome_autor1 = root_proposicao.find('Autor').text
             temas = root_proposicao.find('tema').text
