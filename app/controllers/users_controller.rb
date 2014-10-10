@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: :destroy
 
+	respond_to :html, :json, :xml
 # :nocov:
 
 	def index
@@ -36,7 +37,7 @@ class UsersController < ApplicationController
 	def update
 		@user.update(user_params)
 		flash[:notice] = 'Usuário atualizado com sucesso!' if @user.save
-		redirect_to users_url
+		respond_with(@user)
 	end
 
 	def destroy
