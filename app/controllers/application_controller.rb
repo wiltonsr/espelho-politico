@@ -1,3 +1,4 @@
+# :nocov:
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -14,3 +15,4 @@ class ApplicationController < ActionController::Base
     @connection = Mysql2::Client.new(:host => "localhost", :username => "root", :database => database)
   end
 end
+# :nocov:
