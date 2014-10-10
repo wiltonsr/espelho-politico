@@ -9,7 +9,7 @@ class PasswordResetsController < ApplicationController
 		if @user
 			@user.create_reset_digest
 			@user.send_password_reset_email
-			flash[:info] = "Enviado email com instruções para redefinir a senha"
+			flash.now[:info] = "Enviado email com instruções para redefinir a senha"
 			redirect_to root_url
 		else
 			flash.now[:danger] = "Endereço de email não encontrado"
