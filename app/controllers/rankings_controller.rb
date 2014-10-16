@@ -23,12 +23,12 @@ class RankingsController < ApplicationController
       "GROUP BY themes.id"
       )
 
-    json_result = hash_to_json hash 
-    json_result 
+    json_result = hash_to_json hash
+    json_result
   end
 
   def hash_to_json(hash)
-    hash.to_json 
+    hash.to_json
   end
 
   def order_parliamentarians(themes)
