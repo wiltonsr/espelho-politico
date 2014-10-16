@@ -2,20 +2,29 @@
   <div class="small-12 columns">
     <div class="off-canvas-wrap" data-offcanvas>
       <div class="inner-wrap">
-        <nav class="top-bar show-for-medium-up" data-topbar>
-          <ul class="title-area">
-            <li class="name">
-              <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
-            </li>            
+        <div class="large-0 pull-0 columns">
+          <nav class="top-bar show-for-medium-up" data-topbar>
+            <ul class="title-area">
+              <li class="name">
+                <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
+              </li>
+            </div>
             <div style="width:400px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
-          <ul class="off-canvas-list">  
-             <% @themes.each do |theme| %>            
+          <ul class="off-canvas-list">
+             <!--<% @themes.each do |theme| %>
             <li><%= theme.description %>(<%= theme.propositions.count %>)</li>
-             <% end %>
-           </ul> 
-         </div>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+             <% end %>-->
+           </ul>
+
+            <!--<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+          </ul>-->
+          <ul class="side-nav">
+            <li class="toggle-topbar menu-icon">
+            <% @themes.each do |theme| %>
+           <li><a href="#"<span> <%= theme.description %> (<%= theme.propositions.count %>) </span></a></li></li>
+            <% end %>
           </ul>
+        </div>
           <section class="top-bar-section">
             <!-- Right Nav Section -->
           </section>
@@ -35,7 +44,7 @@
             <li><a href="#">About</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
-        </aside>      
+        </aside>
         <div style="width:583px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
         </div>
        <a class="exit-off-canvas"></a>
@@ -43,4 +52,3 @@
      </div>
    </div>
 </div>
-   
