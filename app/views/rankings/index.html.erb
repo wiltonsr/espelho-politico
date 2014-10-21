@@ -17,8 +17,8 @@
                 <li class="toggle-topbar menu-icon">
                   <% @themes.each do |theme| %>
                     <% link = theme.description + ' (' + theme.propositions.count.to_s + ')' %>
-                    <li><%= link_to link, rankings_path %>
-                    </li>
+                    <% theme_id = Theme.find_by(description: theme.description).id %>
+                    <li><%= link_to link, {controller: :rankings, action: :index, theme_id: theme_id}%></li>
                   <% end %>
                 </li>
               </ul>
@@ -26,11 +26,10 @@
 
           <div id="ranking" style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;">
             <ul class="side-nav">
-              <% theme_id = 2 %> <!-- Provisório -->
-              <% request = sort_parliamentarians_by_propositions_per_theme(theme_id) %>
+              <% request = sort_parliamentarians_by_propositions_per_theme(@selected_theme_id) %>
               <% request.each do |p| %>              
                 <li class="toggle-topbar menu-icon">
-                <%= show_name_and_number_of_propositions(theme_id, p.parliamentarian_id) %>
+                <%= show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id) %>
               <% end %>
             </ul>
           </div>
@@ -59,4 +58,4 @@
        </div>
      </div>
   </div>
-<body>
+</body>
