@@ -1,8 +1,7 @@
 class RankingsController < ApplicationController
   def index
     @themes = order_themes(Theme.all)
-    @parliamentarians = Parliamentarian.all
-    @propositions = Proposition.all
+    @selected_theme_id = (params[:theme_id])
   end
 
   def order_themes(themes)
