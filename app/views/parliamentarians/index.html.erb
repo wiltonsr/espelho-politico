@@ -36,6 +36,11 @@
               <%= submit_tag "Search", :name => nil %>
             </p>
           <% end %>
+          <ul>
+            <%= for parliamentarian in @parliamentarians do %>
+              <li> <%= parliamentarian.name %> </li>
+            <%end%>
+          </ul>
         </div>
        <a class="exit-off-canvas"></a>
        </div>
