@@ -8,6 +8,7 @@
               <li class="name">
                 <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
               </li>
+<<<<<<< HEAD
             </div>
             <div style="width:400px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
           <ul class="off-canvas-list">
@@ -29,26 +30,53 @@
             <!-- Right Nav Section -->
           </section>
         </nav>
+=======
+        </div>
+            <section class="top-bar-section">
+              <!-- Right Nav Section -->
+            </section>
+          </nav>
+>>>>>>> 7c8d9b77ce4265780e160f06bc1505b9d47af672
         <nav class="tab-bar show-for-small">
           <section class="left-small">
             <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
           </section>
-          <section class="middle tab-bar-section">
-            <h1 class="title">Offcanvas for Small</h1>
-          </section>
         </nav>
         <aside class="left-off-canvas-menu">
           <ul class="off-canvas-list">
-            <li><label>Foundation</label></li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li> 
+            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Rankings', rankings_path %></a></li></a></li>
+            <li><a href="#"><li class="active"><a target="_blank">Quiz</a></li></a></li>
+            <li><a href="#"><li class="active"><a target="_blank">Sobre</a></li></a></li>
+            <% if signed_in? %>
+            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Perfil', current_user %></a></li></a></li>
+            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Sair', signout_path,  method: 'delete' %></a></li></a></li>
+            <% else %>
+            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Entrar', signin_path %></a></li></a></li>
+            li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Cadastrar', signup_path %></a></li></a></li>
+            <% end %>
           </ul>
         </aside>
+        <div style="width:400px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
+          <ul class="side-nav">
+            <li class="toggle-topbar menu-icon">
+              <% @themes.each do |theme| %>
+                <li><a href="#"<span> <%= theme.description %> (<%= theme.propositions.count %>) </span></a></li></li>
+              <% end %>
+          </ul>
+<<<<<<< HEAD
+        </aside>
+=======
+        </div>
+>>>>>>> 7c8d9b77ce4265780e160f06bc1505b9d47af672
         <div style="width:583px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
         </div>
        <a class="exit-off-canvas"></a>
        </div>
      </div>
    </div>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> 7c8d9b77ce4265780e160f06bc1505b9d47af672

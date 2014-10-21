@@ -50,3 +50,4 @@ group :coverage do
   gem 'simplecov', :require => false
 end
 
+gem 'cancancan', '~> 1.9'
