@@ -1,64 +1,66 @@
 <body>
 
 <%= render 'shared/show_flashes' %>
-
- <div class="row">
-  <div class="small-12 columns">
-    <div class="off-canvas-wrap" data-offcanvas>
-      <div class="inner-wrap">
-        <nav class="top-bar show-for-medium-up" data-topbar>
-          <ul class="title-area">
-            <li class="name">
-              <h1><a href="#">Entendendo o projeto Espelho Político</a></h1>
-            </li>
-            <!-- <ul class="side-nav">
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li> -->
-          </ul>
-
-          <section class="top-bar-section">
-            <!-- Right Nav Section -->
-          </section>
-        </nav>
-      </div>
-      <nav class="tab-bar show-for-small">
-        <section class="left-small">
-          <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-        </section>           
-      </nav>
-      <aside class="left-off-canvas-menu">
-        <ul class="off-canvas-list">
-          <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li> 
-          <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Rankings', rankings_path %></a></li></a></li>
-          <li><a href="#"><li class="active"><a target="_blank">Quiz</a></li></a></li>
-          <li><a href="#"><li class="active"><a target="_blank">Sobre</a></li></a></li>
-          <% if signed_in? %>
-          <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Perfil', current_user %></a></li></a></li>
-          <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Sair', signout_path,  method: 'delete' %></a></li></a></li>
-          <% else %>
-          <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Entrar', signin_path %></a></li></a></li>
-          <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Cadastrar', signup_path %></a></li></a></li>
-          <% end %>
-        </ul>
-      </aside>     
-      <section class="main-section">
-        <div class="row">
-          <div class="large-12 columns">
-
-            <h4 class="">Espelho Político</h4>
-
-            <p>O projeto tem como vista desenvolver uma visão heurística do processo denominado...</p>
-
-            <p>
-            Projeto em realização conjunta por alunos das disciplinas Gestão de Portifólios e Projetos de Software (GPP) e Métodos de Desenvolvimento de Software (MDS) do curso de <a href="http://fga.unb.br">Engenharia de Software, Universidade de Brasília</a>. </p>
-
-          </div>
-        </div>
-      </section>
-      <a class="exit-off-canvas"></a>
-    </div>
+<div class="row">
+  <div class="inner-wrap">
+    <nav class="top-bar show-for-medium-up" data-topbar>
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">Entendendo o projeto Espelho Político</a></h1>
+        </li>
+      </ul>
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+    </section>
+    </nav>
   </div>
 </div>
 
+ <div class="off-canvas-wrap off-canvas-example" data-offcanvas="">
+  <div class="inner-wrap">
+    <nav class="tab-bar show-for-small">
+      <section class="left-small">
+        <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+      </section>
+
+      <section class="middle tab-bar-section">
+        <h1 class="title">Espelho Político</h1>
+      </section>
+    </nav>
+
+    <aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li> 
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Rankings', rankings_path %></a></li></a></li>
+        <li><a href="#"><li class="active"><a target="_blank">Quiz</a></li></a></li>
+        <li><a href="#"><li class="active"><a target="_blank">Sobre</a></li></a></li>
+        <% if signed_in? %>
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Perfil', current_user %></a></li></a></li>
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Sair', signout_path,  method: 'delete' %></a></li></a></li>
+        <% else %>
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Entrar', signin_path %></a></li></a></li>
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Cadastrar', signup_path %></a></li></a>
+        <% end %>
+      </ul>
+    </aside>
+
+    <section class="main-section">
+      <div class="row">
+        <div class="large-12 columns">
+
+          <br>
+          <p>O projeto tem como vista desenvolver uma visão heurística do processo denominado...</p>
+
+          <p>
+          Projeto em realização conjunta por alunos das disciplinas Gestão de Portifólios e Projetos de Software (GPP) e Métodos de Desenvolvimento de Software (MDS) do curso de <a href="http://fga.unb.br">Engenharia de Software, Universidade de Brasília</a>. </p>
+
+        </div>
+      </div>
+    </section>
+
+    <a class="exit-off-canvas"></a>
+  </div>
+</div>
   <script src='http://assets.codepen.io/assets/libs/fullpage/jquery-ab8e840c3dad7ccf2deadb8c40d53bdb.js'></script>
   <script src='http://cdn.foundation5.zurb.com/foundation.js'></script>
 
