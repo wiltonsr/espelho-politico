@@ -30,7 +30,12 @@
           </ul>
         </aside>
         <div style="width:583px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
-  
+          <%= form_tag parliamentarians_path, :method => 'get' do %>
+            <p>
+              <%= text_field_tag :search, params[:search] %>
+              <%= submit_tag "Search", :name => nil %>
+            </p>
+          <% end %>
         </div>
        <a class="exit-off-canvas"></a>
        </div>
