@@ -8,27 +8,6 @@
               <li class="name">
                 <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
               </li>
-            </div>
-            <div style="width:400px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
-          <ul class="off-canvas-list">
-             <!--<% @themes.each do |theme| %>
-            <li><%= theme.description %>(<%= theme.propositions.count %>)</li>
-             <% end %>-->
-           </ul>
-
-            <!--<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-          </ul>-->
-          <ul class="side-nav">
-            <li class="toggle-topbar menu-icon">
-            <% @themes.each do |theme| %>
-           <li><a href="#"<span> <%= theme.description %> (<%= theme.propositions.count %>) </span></a></li></li>
-            <% end %>
-          </ul>
-        </div>
-          <section class="top-bar-section">
-            <!-- Right Nav Section -->
-          </section>
-        </nav>
         </div>
             <section class="top-bar-section">
               <!-- Right Nav Section -->
@@ -38,10 +17,15 @@
           <section class="left-small">
             <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
           </section>
+
+          <section class="middle tab-bar-section">
+            <h1 class="title">Espelho Político</h1>
+          </section>
         </nav>
+
         <aside class="left-off-canvas-menu">
           <ul class="off-canvas-list">
-            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li> 
+            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li>
             <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Rankings', rankings_path %></a></li></a></li>
             <li><a href="#"><li class="active"><a target="_blank">Quiz</a></li></a></li>
             <li><a href="#"><li class="active"><a target="_blank">Sobre</a></li></a></li>
@@ -61,13 +45,9 @@
                 <li><a href="#"<span> <%= theme.description %> (<%= theme.propositions.count %>) </span></a></li></li>
               <% end %>
           </ul>
-        </aside>
-        </div>
-        <div style="width:583px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
         </div>
        <a class="exit-off-canvas"></a>
        </div>
      </div>
    </div>
-</div>
 </div>
