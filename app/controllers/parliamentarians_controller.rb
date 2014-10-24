@@ -1,6 +1,12 @@
 class ParliamentariansController < ApplicationController
   def index
     @parliamentarians = Parliamentarian.search(params[:search])
+    @parliamentarians_s = Parliamentarian.all.select(:id, :state)
+    @ordened_states = order_states(@parliamentarians_s)
+
+    @parliamentarians.each do |p|
+      p.state
+    end
   end
 
   def show
@@ -9,5 +15,10 @@ class ParliamentariansController < ApplicationController
 
   def new
     @parliamentarian = Parliamentarian.new
+  end
+
+  def order_states(state)
+    state  = state.to_a
+    state.sort! {|a,b| a.state <=> b.state}
   end
 end
