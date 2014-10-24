@@ -1,3 +1,9 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).on( "click", ".theme-chooser", function() {
+    $("#ranking").load("/ranking #content", {theme_id: $(this).text()})
+  });
+</script>
 <body>
   <div class="row">
     <div class="small-12 columns">
@@ -11,27 +17,29 @@
                 </li>
               </ul>
           </div>
-          <div id="theme-chooser" style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;float:left">
+          <div style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;float:left">
             <aside>
               <ul class="side-nav">
                 <li class="toggle-topbar menu-icon">
                   <% @themes.each do |theme| %>
                     <% link = theme.description + ' (' + theme.propositions.count.to_s + ')' %>
                     <% theme_id = Theme.find_by(description: theme.description).id %>
-                    <li><%= link_to link, {controller: :rankings, action: :index, theme_id: theme_id}%></li>
+                    <li><%= link_to link, 'javascript:;', class: "theme-chooser"  %></li>
                   <% end %>
                 </li>
               </ul>
           </div>
 
           <div id="ranking" style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;">
-            <ul class="side-nav">
-              <% request = sort_parliamentarians_by_propositions_per_theme(@selected_theme_id) %>
-              <% request.each do |p| %>              
-                <li class="toggle-topbar menu-icon">
-                <%= show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id) %>
-              <% end %>
-            </ul>
+            <div id="content">
+              <ul class="side-nav">
+                <% request = sort_parliamentarians_by_propositions_per_theme(@selected_theme_id) %>
+                <% request.each do |p| %>
+                  <li class="toggle-topbar menu-icon">
+                  <%= show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id) %>
+                <% end %>
+              </ul>
+            </div>
           </div>
           <section class="top-bar-section">
             <!-- Right Nav Section -->
