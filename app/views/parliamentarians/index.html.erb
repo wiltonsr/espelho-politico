@@ -37,8 +37,8 @@
             </p>
           <% end %>
           <ul>
-            <%= for parliamentarian in @parliamentarians do %>
-              <li> <%= parliamentarian.name %> </li>
+            <% @parliamentarians.each do |p| %>
+              <li> <%= p.name %> </li>
             <%end%>
           </ul>
         </div>
