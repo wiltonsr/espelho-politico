@@ -1,8 +1,7 @@
 class ParliamentariansController < ApplicationController
   def index
     @parliamentarians = Parliamentarian.search(params[:search])
-    @parliamentarians_s = Parliamentarian.all.select(:id, :state)
-    @ordened_states = order_states(@parliamentarians_s)
+    @ordened_states = order_states(Parliamentarian.select(:state).distinct)
 
     @parliamentarians.each do |p|
       p.state
