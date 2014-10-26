@@ -19,7 +19,7 @@
               <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
               <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
                 <% @ordened_states.each do |p| %>
-                  <li><a href="#"> <%= p.state %> </a></li>
+                  <li><a href="#"> <%= link_to @selected_state, p.state %> </a></li>
                 <%end%>
               </ul>
             </ul>
@@ -27,7 +27,7 @@
               <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
               <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
                 <% @ordened_partys.each do |p| %>
-                  <li><a href="#"> <%= p.party %> </a></li>
+                  <li><a href="#"> <%= link_to @selected_party, p.party %> </a></li>
                 <%end%>
               </ul>
             </ul>
