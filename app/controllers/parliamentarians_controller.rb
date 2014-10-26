@@ -3,10 +3,6 @@ class ParliamentariansController < ApplicationController
     @parliamentarians = Parliamentarian.search(params[:search])
     @ordened_states = order_states(Parliamentarian.select(:state).distinct)
     @ordened_partys = order_partys(Parliamentarian.select(:party).distinct)
-
-    # @parliamentarians.each do |p|
-    #   p.state
-    # end
   end
 
   def show
@@ -27,7 +23,11 @@ class ParliamentariansController < ApplicationController
     party.sort! {|a,b| a.party <=> b.party}
   end
 
-  def get_by_state(state)
-    @parlamentarians_by_state = Parliamentarian.select(:state)
+  def parliamentarians_per_state(state)
+    @selected_state = Parliamentarian.where(:state)
+  end
+
+  def parliamentarians_per_party(party)
+    @selected_party = Parliamentarian.where(:party)
   end
 end
