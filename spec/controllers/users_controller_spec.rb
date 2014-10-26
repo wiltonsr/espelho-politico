@@ -1,24 +1,24 @@
 require 'rails_helper'
 
-# RSpec.describe UsersController, :type => :controller do
+RSpec.describe UsersController, :type => :controller do
 
-#   let(:valid_attributes) {{
-#     :name => "Jose",
-#     :email => "jose@email.com", 
-#     :password => "123456",
-#     :username => "zejose",
-#     :password_confirmation => "123456"
-#     }}
+  let(:valid_attributes) {{
+    :name => "Jose",
+    :email => "jose@email.com", 
+    :password => "123456",
+    :username => "zejose",
+    :password_confirmation => "123456"
+    }}
 
-#   let(:invalid_attributes) {{
-#     :name => " ",
-#     :email => "aiushdaaas",
-#     :password => "1234",
-#     :username => "jose",
-#     :password_confirmation => "123456"
-#     }}
+  let(:invalid_attributes) {{
+    :name => " ",
+    :email => "aiushdaaas",
+    :password => "1234",
+    :username => "jose",
+    :password_confirmation => "123456"
+    }}
    
-#    let(:valid_session) {{}}
+   let(:valid_session) {{}}
 
 #    describe "POST create" do
 #     describe "with valid attributes" do
@@ -46,12 +46,12 @@ require 'rails_helper'
 #     end
 #   end
 
-#   describe "GET new" do
-#     it "Assigns a new user as @user" do
-#       get :new, {}, valid_session
-#       expect(assigns(:user)).to be_a_new(User)
-#     end
-#   end
+  describe "GET new" do
+    it "Assigns a new user as @user" do
+      get :new, {}, valid_session
+      expect(assigns(:user)).to be_a_new(User)
+    end
+  end
 
 #   describe "PUT update" do
 #     describe "with valid_attributes" do
@@ -92,4 +92,4 @@ require 'rails_helper'
 #       response.should redirect_to(users_path)
 #     end 
 #   end 
-# end
+end
