@@ -41,4 +41,3 @@ RSpec.describe ParliamentariansController, :type => :controller do
     end
   end
 end
- 
