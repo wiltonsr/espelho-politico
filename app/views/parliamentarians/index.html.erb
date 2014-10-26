@@ -31,6 +31,14 @@
                 <%end%>
               </ul>
             </ul>
+            <ul id="drop2" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
+              <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
+              <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
+                <% @ordened_partys.each do |p| %>
+                  <li><a href="#"> <%= p.party %> </a></li>
+                <%end%>
+              </ul>
+            </ul>
 
           <section class="top-bar-section">
             <!-- Right Nav Section -->
@@ -52,7 +60,6 @@
             <li><a href="#">Contact</a></li>
           </ul>
         </aside>
-        <div style="width:583px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
           <%= form_tag parliamentarians_path, :method => 'get' do %>
              <div class="row">
                 <div class="small-8">
