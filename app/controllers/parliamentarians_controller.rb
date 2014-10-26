@@ -26,4 +26,8 @@ class ParliamentariansController < ApplicationController
     party  = party.to_a
     party.sort! {|a,b| a.party <=> b.party}
   end
+
+  def get_by_state(state)
+    @parlamentarians_by_state = Parliamentarian.select(:state)
+  end
 end
