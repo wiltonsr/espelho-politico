@@ -6,9 +6,19 @@
           <nav class="top-bar show-for-medium-up" data-topbar>
             <ul class="title-area">
               <li class="name">
-                <h1><a href="#">Busca de Parlamentares</a></h1>
+                <h1><a href="#">Perfil Parlamentar</a></h1>
               </li>
             </div>
+            <button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">Estados &raquo;</button>
+            <ul id="drop1" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
+              <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
+              <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
+                <% @ordened_states.each do |p| %>
+                  <li><a href="#"> <%= p.state %> </a></li>
+                <%end%>
+              </ul>
+            </ul>
+
           <section class="top-bar-section">
             <!-- Right Nav Section -->
           </section>
@@ -33,7 +43,7 @@
           <%= form_tag parliamentarians_path, :method => 'get' do %>
             <p>
               <%= text_field_tag :search, params[:search] %>
-              <%= submit_tag "Search", :name => nil %>
+              <%= submit_tag "Buscar", :name => nil %>
             </p>
           <% end %>
           <ul>
