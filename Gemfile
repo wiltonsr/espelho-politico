@@ -53,3 +53,6 @@ group :coverage do
 end
 
 gem 'cancancan', '~> 1.9'
+
+gem 'factory_girl'
+gem 'database_cleaner'
