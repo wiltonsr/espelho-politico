@@ -14,15 +14,11 @@ Rails.application.routes.draw do
   resources :themes
   resources :rankings
   resources :parliamentarians
-  resources :sessions, only: [:new, :create, :destroy]
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  get 'signup' => 'users#new'
-  get 'signin' => 'sessions#new'
-  post 'signin' => 'sessions#create'
-  delete 'signout' => 'sessions#destroy'
   post 'ranking' => 'rankings#index'
   get ':state' => 'parliamentarians#parliamentarians_per_state'
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
