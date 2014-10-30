@@ -30,13 +30,7 @@
         <li class="active"><a  target="_blank"><%= link_to 'Rankings', rankings_path %></a></li>
         <li class="active"><a target="_blank">Quiz</a></li>
         <li class="active"><a target="_blank">Sobre</a></li>
-        <% if signed_in? %>
-          <li class="active"><a  target="_blank"><%= link_to 'Perfil', current_user %></a></li>
-          <li class="active"><a  target="_blank"><%= link_to 'Sair', signout_path,  method: 'delete' %></a></li>
-        <% else %>
-          <li class="active"><a  target="_blank"><%= link_to 'Entrar', signin_path %></a></li>
-          <li class="active"><a  target="_blank"><%= link_to 'Cadastrar', signup_path %></a></li>
-        <% end %>
+        <li> <%= link_to "SAIR", destroy_user_session_path, :method => :delete %></li>
       </ul>
     </section>
   </nav>
@@ -47,15 +41,7 @@
        </div>
     </div>
 
-<% if user_signed_in? %>
-Signed in as <%= current_user.name %>. Not you?
-<%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
-<% else %>
-<%= link_to "Sign up", new_user_registration_path %> or
-<%= link_to "Sign in", new_user_session_path %>
-<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-<% end %>
-    
+
  <%= yield %>
     <%= javascript_include_tag "application" %>
 

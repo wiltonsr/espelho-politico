@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	before_action :signed_in_user, only: [:index, :edit, :update]
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: :destroy
-
+	before_action :authenticate_user!
 	respond_to :html, :json, :xml
 # :nocov:
 
@@ -30,7 +30,8 @@ class UsersController < ApplicationController
 			flash[:info] = 'Por favor, verifique seu email para ativar sua conta'
 			redirect_to root_url
 		else
-			render 'new'
+			redirect_to root_url
+			#render 'new'
 		end
 	end
 
