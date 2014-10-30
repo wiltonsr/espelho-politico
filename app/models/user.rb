@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	
+
 	devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
@@ -24,7 +24,6 @@ class User < ActiveRecord::Base
 	attr_accessor :remember_token, :activation_token, :reset_token
 	before_save :downcase_email_and_username
 	before_create :create_activation_digest
-	has_secure_password
 
 	validates_presence_of :name, :email, :username, :password
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
