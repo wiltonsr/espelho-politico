@@ -1,0 +1,9 @@
+<h1>Informações do usuário</h1>
+
+<%= render 'shared/show_flashes' %>
+
+<p> Nome: <%= current_user.name %> </p>
+<p> Email: <%= current_user.email %> </p>
+
+<%= link_to 'Editar', edit_user_registration_path(current_user) %>
+<%= link_to 'Voltar', users_path %>
