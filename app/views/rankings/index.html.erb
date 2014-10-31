@@ -46,25 +46,16 @@
           <section class="top-bar-section">
             <!-- Right Nav Section -->
           </section>
-          </nav>
-          <nav class="tab-bar show-for-small">
-            <section class="left-small">
-              <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-            </section>
-            <section class="middle tab-bar-section">
-              <h1 class="title">Offcanvas for Small</h1>
-            </section>
-          </nav>
-          <aside class="left-off-canvas-menu">
-            <ul class="off-canvas-list">
-              <li><label>Foundation</label></li>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </aside>
-          <a class="exit-off-canvas"></a>
-         </div>
+        </nav>
+        <div style="width:400px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
+          <ul class="side-nav">
+            <li class="toggle-topbar menu-icon">
+              <% @themes.each do |theme| %>
+                <li><a href="#"<span> <%= theme.description %> (<%= theme.propositions.count %>) </span></a></li></li>
+              <% end %>
+          </ul>
+        </div>
+       <a class="exit-off-canvas"></a>
        </div>
      </div>
    </div>

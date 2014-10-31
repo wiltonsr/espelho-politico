@@ -30,7 +30,12 @@
         <li class="active"><a  target="_blank"><%= link_to 'Rankings', rankings_path %></a></li>
         <li class="active"><a target="_blank">Quiz</a></li>
         <li class="active"><a target="_blank">Sobre</a></li>
-        <li> <%= link_to "SAIR", destroy_user_session_path, :method => :delete %></li>
+         <% if user_signed_in? %>
+          <li class="active"><a  target="_blank"><%= link_to current_user.name, edit_user_registration_path %></a></li>
+          <li class="active"><a  target="_blank"><%= link_to 'Sair', destroy_user_session_path, :method => :delete %></a></li>
+        <% else %>
+          <li class="active"><a  target="_blank"><%= link_to 'Entrar', new_user_session_path %></a></li>
+        <% end %>
       </ul>
     </section>
   </nav>
