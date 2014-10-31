@@ -4,36 +4,24 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
 	def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-	    user = User.where(:provider => auth.provider, :uid => auth.uid).first
-	    if user
-	      return user
-	    else
-	      registered_user = User.where(:email => auth.info.email).first
-	      if registered_user
-	        return registered_user
-	      else
-	        user = User.create(name:auth.extra.raw_info.name,
-	                            provider:auth.provider,
-	                            uid:auth.uid,
-	                            email:auth.info.email,
-	                            password:Devise.friendly_token[0,20],
-	                          )
-	      end    end
-	  end
-
-	attr_accessor :remember_token, :activation_token, :reset_token
-	before_save :downcase_email_and_username
-	before_create :create_activation_digest
-
-	validates_presence_of :name, :email, :username, :password
-	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-	validates_format_of :email, with: VALID_EMAIL_REGEX, :on => [:create, :update]
-	VALID_USERNAME_REGEX = /[a-z0-9._-]{5,30}/i
-	validates_format_of :username, with: VALID_USERNAME_REGEX, :on  => [:create, :update]
-	validates_length_of :email, maximum: 30
-	validates_length_of :username, within: 5..20
-	validates_length_of :password, within: 5..20
-	validates_uniqueness_of [:email, :username], case_sensitive: false
+		user = User.where(:provider => auth.provider, :uid => auth.uid).first
+		if user
+			return user
+		else
+			registered_user = User.where(:email => auth.info.email).first
+			if registered_user
+				return registered_user
+			else
+				user = User.create(
+					name:auth.extra.raw_info.name,
+          provider:auth.provider,
+          uid:auth.uid,
+          email:auth.info.email,
+          password:Devise.friendly_token[0,20]
+        )
+			end
+		end
+	end
 
 	# Retorna o hash da string fornecida.
 	# :nocov:
@@ -97,12 +85,6 @@ class User < ActiveRecord::Base
 	end
 
 	private
-			# Converte o email para caixa baixa
-		def downcase_email_and_username
-			self.email = email.downcase
-			self.username = username.downcase
-		end
-
 		# Cria e assina a atribui o token e digest de ativação
 		def create_activation_digest
 			self.activation_token = User.new_token
