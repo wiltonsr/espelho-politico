@@ -4,9 +4,13 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
 # Use sqlite3 as the database for Active Record
+<<<<<<< HEAD
 gem 'sqlite3'
 # Use mysql as the database for Active Record
 gem 'mysql2'
+=======
+gem 'mysql2', '0.3.16'
+>>>>>>> Melhorando view de parlamentar, criando Favicon.ico e colocando logo nos arquivos
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -40,6 +44,9 @@ gem 'capistrano-rails', group: :development
 
 # Use foundation framework to front-end development
 gem 'foundation-rails'
+
+# gem chartkick for simple graphs
+gem "chartkick"
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
