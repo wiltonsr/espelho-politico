@@ -6,6 +6,7 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "Espelho Político" %></title>
 
+    <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
@@ -40,13 +41,13 @@
   </nav>
   <div class="row">
         <div class="large-12 columns">
-            <h2><center><img src="http://i60.tinypic.com/15s0w03.jpg"/></center></h2> 
+            <h2><center><img src="/ep_logo.png"/></center></h2>
             <hr />
        </div>
     </div>
  <%= yield %>
     <%= javascript_include_tag "application" %>
-   
+
   </body>
 
 </html>

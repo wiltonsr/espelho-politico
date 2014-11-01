@@ -39,7 +39,7 @@
             <li><a href="#">Contact</a></li>
           </ul>
         </aside>
-        <div style="width:583px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
+        <div style="width:983px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
           <%= form_tag parliamentarians_path, :method => 'get' do %>
             <p>
               <%= text_field_tag :search, params[:search] %>
@@ -49,7 +49,7 @@
           <ul>
             <% @parliamentarians.each do |p| %>
               <p>
-              <center><img src="<%= p.url_photo %>"/></center>
+              <center><a href="#"<span><img src="<%= p.url_photo %>"/></span></center>
               <center><b><%= p.name %></b></center>
               <li><right>Partido: <%= p.party %></right>
               <li>Estado: <%= p.state %></li>
