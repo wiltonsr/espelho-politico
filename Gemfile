@@ -8,7 +8,7 @@ gem 'sqlite3'
 # Use mysql as the database for Active Record
 gem 'mysql2'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -46,6 +46,11 @@ gem 'foundation-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'factory_girl'
+  gem 'cucumber-rails', :require => false
 end
 # Gem Simplecov
 group :coverage do
@@ -53,6 +58,3 @@ group :coverage do
 end
 
 gem 'cancancan', '~> 1.9'
-
-gem 'factory_girl'
-gem 'database_cleaner'
