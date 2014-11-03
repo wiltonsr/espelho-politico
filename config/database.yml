@@ -8,8 +8,6 @@ default: &default
     adapter: mysql2
     pool: 5
     timeout: 5000
-    username: root
-    password: dakotag5
 development:
     <<: *default
     database: ep_dev

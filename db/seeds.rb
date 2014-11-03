@@ -11,12 +11,6 @@
 	Theme.create(:id => 2, :description => "Saúde")
 	Theme.create(:id => 3, :description => "Segurança")
 	Theme.create(:id => 4, :description => "Lazer")
-	Theme.create(:id => 5, :description => "Saude")
-	Theme.create(:id => 6, :description => "Educação")
-	Theme.create(:id => 7, :description => "Educação")
-	Theme.create(:id => 8, :description => "Educação")
-	Theme.create(:id => 9, :description => "Saúde")
-	Theme.create(:id => 10, :description => "Segurança")
 
 	Proposition.create(:id => 1)
 	Proposition.create(:id => 2)

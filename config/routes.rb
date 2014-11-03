@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   post 'ranking' => 'rankings#index'
   get ':state' => 'parliamentarians#parliamentarians_per_state'
 
+  match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

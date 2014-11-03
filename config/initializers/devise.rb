@@ -3,6 +3,8 @@
 Devise.setup do |config|
   require "omniauth-facebook"
   config.omniauth :facebook, "1536882819880719", "082a881387b418a8b1478cbfadf0e4b1"
+  config.omniauth :twitter, "O4H6X8qvPuh3f8I0zxqLGfWdF", "aRS3MO11hlgMM0waM7aTn28ozi5UBJ8gHMHQnTBDLlKTqRWnJt"
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -12,7 +14,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'espelhopolitico@gmail.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
