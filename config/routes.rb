@@ -16,6 +16,11 @@ Rails.application.routes.draw do
   resources :parliamentarians
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
+  get 'signup' => 'users#new'
+  get 'signin' => 'sessions#new'
+  post 'signin' => 'sessions#create'
+  delete 'signout' => 'sessions#destroy'
+  get ':state' => 'parliamentarians#parliamentarians_per_state'
   post 'ranking' => 'rankings#index'
   get ':state' => 'parliamentarians#parliamentarians_per_state'
 
