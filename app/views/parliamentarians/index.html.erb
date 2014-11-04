@@ -4,17 +4,22 @@
       <div class="inner-wrap">
         <div class="large-0 pull-0 columns">
           <nav class="top-bar show-for-medium-up" data-topbar>
-            <ul class="title-area">
+            <dl class="sub-nav">
+            <nav class="top-bar show-for-medium-up" data-topbar>
+              <ul class="title-area">
               <li class="name">
                 <h1><a href="#">Perfil Parlamentar</a></h1>
               </li>
-            </div>
-            <button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">Estados &raquo;</button>
+              <dd><a href="#"><button data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">Estados &raquo;</button></a></dd>
+              <dd><a href="#"><button data-dropdown="drop2" aria-controls="drop2" aria-expanded="false">Partidos &raquo;</button></a></dd>
+              <!-- <dd><a href="#">Suspended</a></dd>
+              <dd><a href="#">Suspended</a></dd> -->
+            </dl>
             <ul id="drop1" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
               <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
               <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
                 <% @ordened_states.each do |p| %>
-                  <li><a href="#"> <%= p.state %> </a></li>
+                  <li> <%= link_to @selected_state, p.state %> </li>
                 <%end%>
               </ul>
             </ul>
@@ -22,7 +27,7 @@
               <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
               <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
                 <% @ordened_partys.each do |p| %>
-                  <li><a href="#"> <%= p.party %> </a></li>
+                  <li> <%= link_to @selected_party, p.party %> </li>
                 <%end%>
               </ul>
             </ul>
@@ -47,13 +52,20 @@
             <li><a href="#">Contact</a></li>
           </ul>
         </aside>
-        <div style="width:983px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
           <%= form_tag parliamentarians_path, :method => 'get' do %>
-            <p>
-              <%= text_field_tag :search, params[:search] %>
-              <%= submit_tag "Buscar", :name => nil %>
-            </p>
+             <div class="row">
+                <div class="small-8">
+                  <p><div class="small-8 columns">
+                    <%= text_field_tag :search, params[:search], id:"right-label", placeholder: "Nome do Parlamentar" %>
+                  </div></p>
+                  <div class="small-3 columns">
+                    <%= submit_tag "Buscar", :name => nil , class: "button postfix" %>
+                  </div>
+              </div>
+            </div>
           <% end %>
+          <% if !params[:search].nil? %>
+          <div style="width:583px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
           <ul>
             <% @parliamentarians.each do |p| %>
               <p>
@@ -68,6 +80,7 @@
             <%end%>
           </ul>
         </div>
+        <%end%>
        <a class="exit-off-canvas"></a>
        </div>
      </div>

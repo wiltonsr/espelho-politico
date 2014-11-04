@@ -5,7 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.1.5'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.3.16'
->>>>>>> Melhorando view de parlamentar, criando Favicon.ico e colocando logo nos arquivos
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
 # Use SCSS for stylesheets
 # gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -40,19 +41,11 @@ gem 'capistrano-rails', group: :development
 # Use foundation framework to front-end development
 gem 'foundation-rails'
 
-# gem chartkick for simple graphs
-gem "chartkick"
-
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
-  gem 'capybara'
-  gem 'database_cleaner'
-  gem 'selenium-webdriver'
-  gem 'factory_girl'
-  gem 'cucumber-rails', :require => false
 end
 # Gem Simplecov
 group :coverage do

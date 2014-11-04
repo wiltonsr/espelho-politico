@@ -9,7 +9,7 @@ default: &default
     pool: 5
     timeout: 5000
     username: root
-    password: dakotag5
+    password:
 development:
     <<: *default
     database: ep_dev
