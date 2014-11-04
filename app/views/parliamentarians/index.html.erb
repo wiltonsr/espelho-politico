@@ -1,35 +1,34 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        var states = document.getElementsByClassName('state_li')
+
+        for(var i = 0; i < states.length; i++) {
+          states[i].addEventListener('click', click_state, false);
+        }
+
+        function get_parliamentarians_per_state(value) { // value = state acronym
+            $.ajax({
+                url: "/parliamentarians/parliamentarians_per_state",
+                type: "GET",
+                dataType: "json",
+                data: {"state": value},
+                success: function (response) {
+                  console.log("sucesso");
+                },
+                error: function () {
+                  console.log("erro");
+                }
+            });
+        }
+
+        function click_state() {
+          var value = $(this).text();
+
+          get_parliamentarians_per_state(value.trim());
+        }
+    });
+</script>
 <div class="row">
-  <script type="text/javascript">
-      $(document).ready(function () {
-          var states = document.getElementsByClassName('state_li')
-
-          for(var i = 0; i < states.length; i++) {
-            states[i].addEventListener('click', click_state, false);
-          }
-
-          function get_parliamentarians(value) { // value = state acronym
-              $.ajax({
-                  url: "/parliamentarians/parliamentarians_per_state",
-                  type: "GET",
-                  dataType: "json",
-                  data: {"state": value},
-                  success: function (response) {
-                    console.log("sucesso");
-                  },
-                  error: function () {
-                    console.log("erro");
-                  }
-              });
-          }
-
-          function click_state() {
-            var value = $(this).text();
-
-            get_parliamentarians(value.trim());
-          }
-      });
-  </script>
-
   <div class="small-12 columns">
     <div class="off-canvas-wrap" data-offcanvas>
       <div class="inner-wrap">
