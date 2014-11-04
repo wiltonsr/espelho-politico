@@ -1,82 +1,55 @@
-<div class="row">
-  <div class="small-12 columns">
-    <div class="off-canvas-wrap" data-offcanvas>
-      <div class="inner-wrap">
-        <div class="large-0 pull-0 columns">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).on( "click", ".theme-chooser", function() {
+    $(".theme-chooser").css("background-color", "#cfcfcf");
+    $(this).css("background-color", "#333333");
+    $("#ranking").load("/ranking #content", {theme_id: $(this).text()})
+  });
+</script>
+<body>
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="off-canvas-wrap" data-offcanvas>
+        <div class="inner-wrap">
+          <div class="large-0 pull-0 columns">
           <nav class="top-bar show-for-medium-up" data-topbar>
-            <ul class="title-area">
-              <li class="name">
-                <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
-              </li>
-<<<<<<< HEAD
-            </div>
-            <div style="width:400px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
-          <ul class="off-canvas-list">
-             <!--<% @themes.each do |theme| %>
-            <li><%= theme.description %>(<%= theme.propositions.count %>)</li>
-             <% end %>-->
-           </ul>
+              <ul class="title-area">
+                <li class="name">
+                  <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
+                </li>
+              </ul>
+          </div>
+          <div style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;float:left">
+            <aside>
+              <ul class="side-nav">
+                <li class="toggle-topbar menu-icon">
+                  <% @themes.each do |theme| %>
+                    <% link = theme.description + ' (' + theme.propositions.count.to_s + ')' %>
+                    <% theme_id = Theme.find_by(description: theme.description).id %>
+                    <li><%= link_to link, 'javascript:;', class: "theme-chooser"  %></li>
+                  <% end %>
+                </li>
+              </ul>
+          </div>
 
-            <!--<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-          </ul>-->
-          <ul class="side-nav">
-            <li class="toggle-topbar menu-icon">
-            <% @themes.each do |theme| %>
-           <li><a href="#"<span> <%= theme.description %> (<%= theme.propositions.count %>) </span></a></li></li>
-            <% end %>
-          </ul>
-        </div>
+          <div id="ranking" style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;">
+            <div id="content">
+              <ul class="side-nav">
+                <% request = sort_parliamentarians_by_propositions_per_theme(@selected_theme_id) %>
+                <% request.each do |p| %>
+                  <li class="toggle-topbar menu-icon">
+                  <%= show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id) %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
           <section class="top-bar-section">
             <!-- Right Nav Section -->
           </section>
         </nav>
-=======
-        </div>
-            <section class="top-bar-section">
-              <!-- Right Nav Section -->
-            </section>
-          </nav>
->>>>>>> 7c8d9b77ce4265780e160f06bc1505b9d47af672
-        <nav class="tab-bar show-for-small">
-          <section class="left-small">
-            <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-          </section>
-        </nav>
-        <aside class="left-off-canvas-menu">
-          <ul class="off-canvas-list">
-            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li> 
-            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Rankings', rankings_path %></a></li></a></li>
-            <li><a href="#"><li class="active"><a target="_blank">Quiz</a></li></a></li>
-            <li><a href="#"><li class="active"><a target="_blank">Sobre</a></li></a></li>
-            <% if signed_in? %>
-            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Perfil', current_user %></a></li></a></li>
-            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Sair', signout_path,  method: 'delete' %></a></li></a></li>
-            <% else %>
-            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Entrar', signin_path %></a></li></a></li>
-            <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Cadastrar', signup_path %></a></li></a>
-            <% end %>
-          </ul>
-        </aside>
-        <div style="width:400px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
-          <ul class="side-nav">
-            <li class="toggle-topbar menu-icon">
-              <% @themes.each do |theme| %>
-                <li><a href="#"<span> <%= theme.description %> (<%= theme.propositions.count %>) </span></a></li></li>
-              <% end %>
-          </ul>
-<<<<<<< HEAD
-        </aside>
-=======
-        </div>
->>>>>>> 7c8d9b77ce4265780e160f06bc1505b9d47af672
-        <div style="width:583px;height:400px;line-height:3em;overflow:scroll;padding:5px;">
-        </div>
+
        <a class="exit-off-canvas"></a>
        </div>
      </div>
    </div>
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> 7c8d9b77ce4265780e160f06bc1505b9d47af672

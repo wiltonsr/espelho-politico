@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007233636) do
+ActiveRecord::Schema.define(version: 20141101061856) do
+
+  create_table "identities", force: true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "parliamentarians", force: true do |t|
     t.string  "registry"
@@ -28,14 +38,6 @@ ActiveRecord::Schema.define(version: 20141007233636) do
   add_index "parliamentarians", ["name"], name: "index_parliamentarians_on_name", using: :btree
   add_index "parliamentarians", ["registry"], name: "index_parliamentarians_on_registry", using: :btree
 
-  create_table "parliamentarians_propositions", id: false, force: true do |t|
-    t.integer "parliamentarian_id", null: false
-    t.integer "proposition_id",     null: false
-  end
-
-  add_index "parliamentarians_propositions", ["parliamentarian_id"], name: "index_parliamentarians_propositions_on_parliamentarian_id", using: :btree
-  add_index "parliamentarians_propositions", ["proposition_id"], name: "index_parliamentarians_propositions_on_proposition_id", using: :btree
-
   create_table "propositions", force: true do |t|
     t.integer "year"
     t.integer "number"
@@ -45,6 +47,7 @@ ActiveRecord::Schema.define(version: 20141007233636) do
     t.date    "presentation_date"
     t.string  "situation"
     t.string  "content_link"
+    t.integer "parliamentarian_id"
   end
 
   add_index "propositions", ["number", "year", "proposition_types"], name: "index_propositions_on_number_and_year_and_proposition_types", unique: true, using: :btree
@@ -54,6 +57,7 @@ ActiveRecord::Schema.define(version: 20141007233636) do
     t.integer "theme_id",       null: false
   end
 
+  add_index "propositions_themes", ["proposition_id", "theme_id"], name: "index_propositions_themes_on_proposition_id_and_theme_id", unique: true, using: :btree
   add_index "propositions_themes", ["proposition_id"], name: "index_propositions_themes_on_proposition_id", using: :btree
   add_index "propositions_themes", ["theme_id"], name: "index_propositions_themes_on_theme_id", using: :btree
 
@@ -61,23 +65,42 @@ ActiveRecord::Schema.define(version: 20141007233636) do
     t.string "description"
   end
 
+  add_index "themes", ["description"], name: "index_themes_on_description", unique: true, using: :btree
+
   create_table "users", force: true do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.string   "name"
-    t.string   "email"
     t.string   "username"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_digest"
-    t.boolean  "admin",             default: false
+    t.boolean  "admin",                  default: false
     t.string   "activation_digest"
-    t.boolean  "activated",         default: false
+    t.boolean  "activated",              default: false
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end

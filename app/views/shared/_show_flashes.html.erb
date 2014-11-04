@@ -1,6 +1,6 @@
 <% if flash.any? %>
 		<% flash.each do |name, msg| -%>
-		  <% if name == 'sucess' %>
+		  <% if name == 'success' %>
 		  	<div data-alert class="alert-box success radious">
 		  		<%= content_tag :div, msg, class: name %>
 				<a href="#" class="close">&times;</a>

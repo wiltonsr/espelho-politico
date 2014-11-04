@@ -6,12 +6,12 @@ class Ability
     
     user ||= User.new #guest user
 
-    if user.current_user.admin? :user
-      can :create, Atendimento
-    end
+    # if user.current_user.admin? :user
+    #   can :create, Atendimento
+    # end
 
-    if user.admin? :admin
-      can :manage, :all
-    end
+    # if user.admin? :admin
+    #   can :manage, :all
+    # end
   end
 end

@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.5'
-# Use mariadb as the database for Active Record
+# Use mysql2 as the database for Active Record
 gem 'mysql2', '0.3.16'
 # Use SCSS for stylesheets
 # gem 'sass-rails', '~> 4.0.3'
@@ -39,11 +39,19 @@ gem 'capistrano-rails', group: :development
 # Use foundation framework to front-end development
 gem 'foundation-rails'
 
+# gem chartkick for simple graphs
+gem "chartkick"
+
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'factory_girl'
+  gem 'cucumber-rails', :require => false
 end
 # Gem Simplecov
 group :coverage do
@@ -51,3 +59,8 @@ group :coverage do
 end
 
 gem 'cancancan', '~> 1.9'
+
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook' 
+gem 'omniauth-twitter'

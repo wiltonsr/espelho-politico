@@ -1,32 +1,15 @@
-class SessionsController < ApplicationController
-  def new
-  end
-
+class SessionsController < Devise::SessionsController
   def create
-    user = User.find_by(username: params[:session][:username].downcase)
-    if user && user.authenticate(params[:session][:password])
-      if user.activated?
-        sign_in user
-        if params[:session][:remember_me] == '1'
-          remember(user)
-        else
-          forget(user)
-        end
-        redirect_back_or user
-      else
-        message = "Conta não ativada"
-        message += "Verifique o link de ativação no seu email"
-        flash[:info] = message
-        redirect_to root_url
-      end
-    else
-      flash.now[:danger] = 'Combinação de senha ou email inválida'
-      render 'new'
-    end
-  end
+    user = User.find_by_username(params[:user][:username].downcase)
 
-  def destroy
-    sign_out if signed_in?
-    redirect_to root_url
+    if user && user.valid_password?(params[:user][:password])
+      flash[:success] = "Logado com sucesso" if is_navigational_format?
+      # set_flash_message(:notice, :signed_in) 
+      sign_in(:user, user)
+      respond_with user, :location => after_sign_in_path_for(user)
+    else
+      flash[:danger] = "E-mail ou senha inválidos"
+      redirect_to new_user_session_path
+    end
   end
 end

@@ -30,17 +30,11 @@
 
     <aside class="left-off-canvas-menu">
       <ul class="off-canvas-list">
-        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li> 
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li>
         <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Rankings', rankings_path %></a></li></a></li>
         <li><a href="#"><li class="active"><a target="_blank">Quiz</a></li></a></li>
         <li><a href="#"><li class="active"><a target="_blank">Sobre</a></li></a></li>
-        <% if signed_in? %>
-        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Perfil', current_user %></a></li></a></li>
-        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Sair', signout_path,  method: 'delete' %></a></li></a></li>
-        <% else %>
-        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Entrar', signin_path %></a></li></a></li>
-        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Cadastrar', signup_path %></a></li></a>
-        <% end %>
+        
       </ul>
     </aside>
 
@@ -63,10 +57,6 @@
 </div>
   <script src='http://assets.codepen.io/assets/libs/fullpage/jquery-ab8e840c3dad7ccf2deadb8c40d53bdb.js'></script>
   <script src='http://cdn.foundation5.zurb.com/foundation.js'></script>
-
-  <script src='/assets/common/localstorage.js'></script>
-  <script src='/assets/post/scroll/remember_scroll.js'></script>
-  <script>RememberScroll.init();</script>
 
   <script>
     if (document.location.search.match(/type=embed/gi)) {
