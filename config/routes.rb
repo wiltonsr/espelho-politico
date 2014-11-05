@@ -20,9 +20,11 @@ Rails.application.routes.draw do
   get 'signin' => 'sessions#new'
   post 'signin' => 'sessions#create'
   delete 'signout' => 'sessions#destroy'
-  get ':state' => 'parliamentarians#parliamentarians_per_state'
   post 'ranking' => 'rankings#index'
-  get ':state' => 'parliamentarians#parliamentarians_per_state'
+
+  resources :parliamentarians, :except => [:show]  do
+    get 'parliamentarians_per_state', :on => :collection
+  end
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   # Example of named route that can be invoked with purchase_url(id: product.id)

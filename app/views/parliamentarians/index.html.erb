@@ -1,4 +1,35 @@
 <div class="row">
+  <script type="text/javascript">
+      $(document).ready(function () {
+          var states = document.getElementsByClassName('state_li')
+
+          for(var i = 0; i < states.length; i++) {
+            states[i].addEventListener('click', click_state, false);
+          }
+
+          function get_parliamentarians(value) { // value = state acronym
+              $.ajax({
+                  url: "/parliamentarians/parliamentarians_per_state",
+                  type: "GET",
+                  dataType: "json",
+                  data: {"state": value},
+                  success: function (response) {
+                    console.log("sucesso");
+                  },
+                  error: function () {
+                    console.log("erro");
+                  }
+              });
+          }
+
+          function click_state() {
+            var value = $(this).text();
+
+            get_parliamentarians(value.trim());
+          }
+      });
+  </script>
+
   <div class="small-12 columns">
     <div class="off-canvas-wrap" data-offcanvas>
       <div class="inner-wrap">
@@ -19,7 +50,7 @@
               <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
               <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
                 <% @ordened_states.each do |p| %>
-                  <li> <%= link_to @selected_state, p.state %> </li>
+                  <li> <a class="state_li"> <%= p.state %> </a> </li>
                 <%end%>
               </ul>
             </ul>
