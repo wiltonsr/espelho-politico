@@ -9,11 +9,14 @@ class ParliamentariansController < ApplicationController
     parliamentarian_id = Integer(params[:id]) rescue nil
     unless parliamentarian_id.nil? then
       @parliamentarian = Parliamentarian.find(params[:id])
+      render nothing: true
     end
+    render nothing: true
   end
 
   def new
     @parliamentarian = Parliamentarian.new
+    render nothing: true
   end
 
   def order_states(state)
@@ -28,7 +31,6 @@ class ParliamentariansController < ApplicationController
 
   def parliamentarians_per_state
     @selected_state = Parliamentarian.where(params[:state])
-    puts @selected_state
   end
 
   def parliamentarians_per_party(party)
