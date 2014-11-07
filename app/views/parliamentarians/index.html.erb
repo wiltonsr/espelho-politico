@@ -1,32 +1,60 @@
 <script type="text/javascript">
-    $(document).ready(function () {
-        var states = document.getElementsByClassName('state_li')
+  $(document).ready(function () {
+    var states = document.getElementsByClassName('state_li')
 
-        for(var i = 0; i < states.length; i++) {
-          states[i].addEventListener('click', click_state, false);
+    for(var i = 0; i < states.length; i++) {
+      states[i].addEventListener('click', click_state, false);
+    }
+
+    function get_parliamentarians_per_state(value) { // value = state acronym
+      $.ajax({
+        url: "/parliamentarians/parliamentarians_per_state",
+        type: "GET",
+        dataType: "json",
+        data: {"state": value},
+        success: function (response) {
+          console.log("sucesso");
+        },
+        error: function () {
+          console.log("erro");
         }
+      });
+    }
 
-        function get_parliamentarians_per_state(value) { // value = state acronym
-            $.ajax({
-                url: "/parliamentarians/parliamentarians_per_state",
-                type: "GET",
-                dataType: "json",
-                data: {"state": value},
-                success: function (response) {
-                  console.log("sucesso");
-                },
-                error: function () {
-                  console.log("erro");
-                }
-            });
-        }
+    function click_state() {
+      var value = $(this).text();
 
-        function click_state() {
-          var value = $(this).text();
+      get_parliamentarians_per_state(value.trim());
+    }
+  });
+  $(document).ready(function () {
+    var partys = document.getElementsByClassName('party_li')
 
-          get_parliamentarians_per_state(value.trim());
-        }
-    });
+    for(var i = 0; i < partys.length; i++) {
+      partys[i].addEventListener('click', click_party, false);
+    }
+
+    function get_parliamentarians_per_party(value) { // value = party acronym
+      $.ajax({
+      url: "/parliamentarians/parliamentarians_per_party",
+        type: "GET",
+        dataType: "json",
+        data: {"party": value},
+        success: function (response) {
+          console.log("sucesso");
+        },
+      error: function () {
+        console.log("erro");
+      }
+      });
+    }
+
+    function click_party() {
+      var value = $(this).text();
+
+      get_parliamentarians_per_party(value.trim());
+    }
+  });
 </script>
 <div class="row">
   <div class="small-12 columns">
@@ -57,7 +85,7 @@
               <ul id="drop" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
               <div style="height:400px;line-height:3em;overflow:scroll;padding:3px;">
                 <% @ordened_partys.each do |p| %>
-                  <li> <%= link_to @selected_party, p.party %> </li>
+                  <li> <a class="party_li"> <%= p.party %> </a> </li>
                 <%end%>
               </ul>
             </ul>
