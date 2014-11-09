@@ -46,7 +46,13 @@ gem 'foundation-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'factory_girl'
+  gem 'cucumber-rails', :require => false
 end
+
 # Gem Simplecov
 group :coverage do
   gem 'simplecov', :require => false
@@ -56,5 +62,5 @@ gem 'cancancan', '~> 1.9'
 
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-facebook' 
+gem 'omniauth-facebook'
 gem 'omniauth-twitter'
