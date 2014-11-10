@@ -76,7 +76,6 @@ class User < ActiveRecord::Base
 	# end
 
 	# Retorna o hash da string fornecida.
-	# :nocov:
   def User.digest(string)
     if cost = ActiveModel::SecurePassword.min_cost
     	BCrypt::Engine::MIN_COST
