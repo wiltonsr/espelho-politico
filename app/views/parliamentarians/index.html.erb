@@ -100,13 +100,9 @@
           <ul>
             <% @parliamentarians.each do |p| %>
               <p>
-              <center><a href="#"<span><img src="<%= p.url_photo %>"/></span></center>
-              <center><b><%= p.name %></b></center>
+              <center><span><img src="<%= p.url_photo %>"/></span></center>
+              <center><b><%= link_to p.name, profile_path(p)%></b></center>
               <li><right>Partido: <%= p.party %></right>
-              <li>Estado: <%= p.state %></li>
-              <li>Email: <%= p.email %> </li>
-              <li>Telefone: <%= p.phone %></li>
-              <li>Endereço: Praça dos Três Poderes - Esplanada dos Ministérios, Brasília. Gabinete: <%= p.cabinet %> </li>
               </p>
             <%end%>
           </ul>
