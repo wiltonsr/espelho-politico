@@ -13,5 +13,12 @@
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
-
  */
+.top-bar {
+overflow: hidden;
+height: 45px;
+line-height: 45px;
+position: relative;
+background: #32CD99;
+margin-bottom: 0; }
+
