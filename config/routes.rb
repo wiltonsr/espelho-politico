@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :themes
   resources :rankings
   resources :parliamentarians
+  resources :profile
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   get 'signup' => 'users#new'
@@ -21,7 +22,7 @@ Rails.application.routes.draw do
   post 'signin' => 'sessions#create'
   delete 'signout' => 'sessions#destroy'
   post 'ranking' => 'rankings#index'
-
+  #get 'profile' => 'parliamentarians#profile'
   resources :parliamentarians, :except => [:show]  do
     get 'parliamentarians_per_state', :on => :collection
   end
