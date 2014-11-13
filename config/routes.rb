@@ -31,6 +31,8 @@ Rails.application.routes.draw do
     get 'parliamentarians_per_party', :on => :collection
   end
 
+  post 'parliamentarians_search' => 'parliamentarians#index'
+
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

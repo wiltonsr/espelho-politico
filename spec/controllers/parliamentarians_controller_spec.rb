@@ -43,10 +43,17 @@ RSpec.describe ParliamentariansController, :type => :controller do
   end
 
   describe "GET new" do
-    it "Assigns a new Parliamentarian as @parliamentarian" do
+    it "assigns a new Parliamentarian as @parliamentarian" do
       get :new, {}
       expect{
         (assigns(:parliamentarian)).to be_a_new(Parliamentarian)}
+    end
+  end
+
+  describe "with database data" do
+    it "assigns @selected_state as Parliamentarian.where(params[:state])" do
+      expect{
+        (assigns(:selected_state).to be(Parliamentarian.where(params[:state])))}
     end
   end
 end
