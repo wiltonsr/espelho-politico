@@ -1,7 +1,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).on( "click", ".theme-chooser", function() {
-    $(".theme-chooser").css("background-color", "#FFFAFA");
+    $(".theme-chooser").css("background-color", "#F0FFF0");
     $(this).css("background-color", "#333333");
     $(".theme-chooser").css("font-color", "#FFFFFF");
     $("#ranking").load("/ranking #content", {theme_id: $(this).text()})
