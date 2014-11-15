@@ -39,16 +39,12 @@
                 <% request = sort_parliamentarians_by_propositions_per_theme(@selected_theme_id) %>
                 <% request.each do |p| %>
                   <li class="toggle-topbar menu-icon">
-                  <%= show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id) %>
+                  <%= link_to show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id), profile_path(p.parliamentarian_id) %>
                 <% end %>
               </ul>
             </div>
           </div>
-          <section class="top-bar-section">
-            <!-- Right Nav Section -->
-          </section>
         </nav>
-
        <a class="exit-off-canvas"></a>
        </div>
      </div>

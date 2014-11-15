@@ -10,6 +10,14 @@ RSpec.describe ParliamentariansController, :type => :controller do
      end
    end
    
+  describe "GET new" do
+    it "assigns a new Parliamentarian as @parliamentarian" do
+      get :new, {}
+      expect{
+        (assigns(:parliamentarian)).to be_a_new(Parliamentarian)}
+    end
+  end
+
   describe "with database data" do
     it "assigns states to appear in order on index" do
       states = []
@@ -39,14 +47,6 @@ RSpec.describe ParliamentariansController, :type => :controller do
       partys = controller.order_partys(@party)
       expect {
         (assigns(:partys)).to match_array(party)}
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new Parliamentarian as @parliamentarian" do
-      get :new, {}
-      expect{
-        (assigns(:parliamentarian)).to be_a_new(Parliamentarian)}
     end
   end
 
