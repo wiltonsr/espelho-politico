@@ -1,9 +1,9 @@
 <p>
   <% p = @parliamentarian %>
   <% @prop_parliamentarian = propositions_parliamentarians(p.id) %>
-  <center><img src="<%= p.url_photo %>"/></center>
-  <center><b><%= p.name %></b></center>
-  <li><right>Partido: <%= p.party %></right>
+  <p align="center"><img src="<%= p.url_photo %>"/></p>
+  <p align="center"><b><%= p.name %></b></p>
+  <li>Partido: <%= p.party %></li>
   <li>Estado: <%= p.state %></li>
   <li>Email: <%= p.email %> </li>
   <li>Telefone: <%= p.phone %></li>
