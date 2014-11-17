@@ -9,3 +9,11 @@ Funcionalidade: Busca de Parlamentares
     Dado que estou na página inicial
     Quando clico no menu "Perfil Parlamentar"
     Então eu vejo na tela "Perfil Parlamentar"
+
+  @selenium
+  Cenário: Ao entrar na página inicial, clico em Perfil Parlamentar
+    Dado que estou na página inicial
+    Quando clico no menu "Perfil Parlamentar"
+    Então eu vejo na tela "Perfil Parlamentar"
+    Então eu digito "FRANCISCO"
+    Quando clico no botão "Buscar"

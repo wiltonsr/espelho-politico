@@ -116,10 +116,9 @@ for parlamentar in parlamentares:
         try:
             xml_proposicoes = ET.parse(urlopen(url_proposicoes))
         except Exception:
-            print "Erro de conexão..."
-            print "Prosseguindo..."
+            print "Parlamentar sem proposição de", pl ,":'("
             print
-            sleep(120)
+            sleep(3)
             continue
         num_proposicoes = 0
         proposicoes = xml_proposicoes.getroot()
@@ -212,7 +211,7 @@ for parlamentar in parlamentares:
         else:
             print "Parlamentar sem proposição de", pl ,":'("
             print
-        sleep(5)
+        sleep(3)
 
 print
 print
