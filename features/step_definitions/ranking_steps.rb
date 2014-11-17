@@ -20,7 +20,3 @@ Quando(/^clico no botão "(.*?)"$/) do |button|
   click_button button
   sleep(3)
 end
-
-E (/^espero$/) do
-  wait
-end
