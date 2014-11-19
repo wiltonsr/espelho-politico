@@ -1,0 +1,37 @@
+<p>
+  <font size="5" face="Verdana" align="center">
+  <% p = @parliamentarian %>
+  <% @prop_parliamentarian = propositions_parliamentarians(p.id) %>
+  <dd><center><img src="<%= p.url_photo %>"/></center></dd>
+  <dd><h1><b><%= p.name %></b></h1></dd>
+</font>
+</p>
+  <hr>
+  <h3><center><b> Informações</b></center></h3>
+  <dd><right>Partido: <%= p.party %></right></dd>
+  <dd>Estado: <%= p.state %></dd>
+  <dd>Email: <%= p.email %> </dd>
+  <dd>Telefone: <%= p.phone %></dd>
+  <dd>Endereço: Praça dos Três Poderes - Esplanada dos Ministérios, Brasília. Gabinete: <%= p.cabinet %> </dd>
+  <hr>
+    <h3><center><b> Proposições</b></center></h3>
+    <section class="main-section">
+      <div class="row">
+        <div class="large-12 columns">
+          <br>
+            <% if @prop_parliamentarian.count == 0 %>
+              <dd><center><b> O parlamentar não possui proposições.</b></center></dd>
+            <% end %>
+            <% else %>
+              <% @prop_parliamentarian.each do |pro| %>
+                <p>
+                <dd>Número: <%= pro.number %></dd>
+                <dd>Ano: <%= pro.year %></dd>
+                <dd>Tipo: <%= pro.proposition_types %></dd>
+                <dd>Emenda: <%= pro.amendment %></dd>
+                <dd>Proposta: <%= pro.explanation %></dd>
+                </p>
+              <% end %>
+        </div>
+      </div>
+    </section>

@@ -1,8 +1,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).on( "click", ".theme-chooser", function() {
-    $(".theme-chooser").css("background-color", "#cfcfcf");
+    $(".theme-chooser").css("background-color", "#F0FFF0");
     $(this).css("background-color", "#333333");
+    $(".theme-chooser").css("font-color", "#FFFFFF");
     $("#ranking").load("/ranking #content", {theme_id: $(this).text()})
   });
 </script>
@@ -32,22 +33,18 @@
               </ul>
           </div>
 
-          <div id="ranking" style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;">
+          <div id="ranking" style="width:48.5%;height:600px;line-height:3em;overflow:scroll;padding:5px;">
             <div id="content">
               <ul class="side-nav">
                 <% request = sort_parliamentarians_by_propositions_per_theme(@selected_theme_id) %>
                 <% request.each do |p| %>
                   <li class="toggle-topbar menu-icon">
-                  <%= show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id) %>
+                  <%= link_to show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id), profile_path(p.parliamentarian_id) %>
                 <% end %>
               </ul>
             </div>
           </div>
-          <section class="top-bar-section">
-            <!-- Right Nav Section -->
-          </section>
         </nav>
-
        <a class="exit-off-canvas"></a>
        </div>
      </div>

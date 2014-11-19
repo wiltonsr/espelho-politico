@@ -14,10 +14,13 @@ Rails.application.routes.draw do
   resources :themes
   resources :rankings
   resources :parliamentarians
+  resources :profile
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   post 'ranking' => 'rankings#index'
   get ':state' => 'parliamentarians#parliamentarians_per_state'
+
+  post 'parliamentarians_search' => 'parliamentarians#index'
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
   # Example of named route that can be invoked with purchase_url(id: product.id)

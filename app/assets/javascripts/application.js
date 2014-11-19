@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require foundation
 //= require turbolinks
+//= require jsapi
+//= require chartkick
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

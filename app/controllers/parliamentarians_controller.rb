@@ -6,11 +6,17 @@ class ParliamentariansController < ApplicationController
   end
 
   def show
-    @parliamentarian = Parliamentarian.find(params[:id])
+    parliamentarian_id = Integer(params[:id]) rescue nil
+    unless parliamentarian_id.nil? then
+      @parliamentarian = Parliamentarian.find(params[:id])
+      render nothing: true
+    end
+    render nothing: true
   end
 
   def new
     @parliamentarian = Parliamentarian.new
+    render nothing: true
   end
 
   def order_states(state)
@@ -23,11 +29,11 @@ class ParliamentariansController < ApplicationController
     party.sort! {|a,b| a.party <=> b.party}
   end
 
-  def parliamentarians_per_state(state)
-    @selected_state = Parliamentarian.where(:state)
+  def parliamentarians_per_state
+    @selected_state = Parliamentarian.where(params[:state])
   end
 
-  def parliamentarians_per_party(party)
+  def parliamentarians_per_party
     @selected_party = Parliamentarian.where(:party)
   end
 end
