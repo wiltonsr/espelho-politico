@@ -1,29 +1,84 @@
 require 'rails_helper'
 
 RSpec.describe RankingsController, :type => :controller do
+  before(:each) do
+    create(:theme, id: 1, description: "Segurança")
+    for i in 1..10 do
+      create(:proposition, id: i)
+      Proposition.find(i).themes << Theme.find_by(description: "Segurança")
+    end
+
+    create(:theme, id: 2, description: "Educação")
+    for i in 11..30 do
+      create(:proposition, id: i)
+      Proposition.find(i).themes << Theme.find_by(description: "Educação")
+    end
+
+    create(:theme, id: 3, description: "Saúde")
+    for i in 31..34 do
+      create(:proposition, id: i)
+      Proposition.find(i).themes << Theme.find_by(description: "Saúde")
+    end
+
+    create(:theme, id: 4, description: "Indústria, Comércio(até 1953)")
+    for i in 35..40
+      create(:proposition, id: i)
+      Proposition.find(i).themes << Theme.find_by(description: "Indústria, Comércio(até 1953)")
+    end
+  end
 
   describe "GET index" do
-    it "return @themes correctly" do
+    it "render the index correctly" do
       get :index
-      expect{
-        (response).to render_template("index")}
-      expect{
-        (assigns(:themes)).not_to be_nil}
-     end
-   end
+      expect(response).to render_template("index")
+    end
 
-  describe "GET index" do
-    describe "with database data" do
-      it "Assigns themes to appear on index" do
-        themes = []
-        themes << Theme.new(:id => 532, :description => "Saúde")
-        themes << Theme.new(:id => 123, :description => "Educação")
-        themes << Theme.new(:id => 521, :description => "Segurança")
-      
-        theme = controller.order_themes(@themes)
-        expect {
-          (assigns(:themes)).to match_array(theme)}
-      end
+    it "returns @themes correctly" do
+      expect(assigns(:themes)).not_to eq([])
+    end
+
+    it "@selected_theme_id its null" do
+      expect(@selected_theme_id).to be_nil
+    end
+  end
+
+  describe "#order_themes" do
+    it "return the themes ordered by propositions number" do
+      theme = controller.order_themes(Theme.all)
+      expect(theme[0].description).to eq("Educação")
+      expect(theme[1].description).to eq("Segurança")
+      expect(theme[2].description).to eq("Indústria, Comércio(até 1953)")
+      expect(theme[3].description).to eq("Saúde")
+    end
+  end
+
+  describe "#find_theme_id_by_params" do
+    it "returns nil when the  params is nil" do
+      params = { nil: nil}
+
+      id = controller.find_theme_id_by_params(params)
+      expect(id).to be_nil
+    end
+
+    it "return the correct theme id when the params is passed" do
+      params = {
+        theme_id: "Indústria, Comércio(até 1953) (10)"
+      }
+
+      id = controller.find_theme_id_by_params(params)
+      expect(id).to eq(4)
+    end
+  end
+
+  describe "POST index" do
+    it "return @theme_id correctly" do
+      params = {
+        theme_id: "Indústria, Comércio(até 1953) (10)"
+      }
+
+      post :index, params
+      expect(response).to render_template("index")
+      expect(assigns(:selected_theme_id)).not_to be_nil
     end
   end
 end

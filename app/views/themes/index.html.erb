@@ -8,9 +8,9 @@
 	<% @themes.each do |theme| %>
 		<tr>
 			<td><%= theme.description %></td>
-          <td><%= theme.propositions.count %></td>
-		</tr>
-		<% end %>
+        <td><%= theme.propositions.count %></td>
+			</tr>
+	<% end %>
 		<p>
 			
 			<%= pie_chart @themes.joins(:propositions).group(:description).count %>
