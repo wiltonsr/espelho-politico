@@ -1,16 +1,14 @@
 class QuizController < ApplicationController
 
   def index
-    @propositions_all = Proposition.all
-
-    @propositions_all = randomize_propositions(@propositions_all)
-    @proposition = @propositions_all[0]
-
+    begin
+          @proposition = randomize_propositions(Proposition.all)[0]
+          puts @proposition.id
+    end while @proposition.explanation.size <= 5
   end
 
   def randomize_propositions(array_propositions)
-    a = array_propositions
-    a.sort_by { rand }
+    array_propositions.sort_by { rand }
   end
 
 end
