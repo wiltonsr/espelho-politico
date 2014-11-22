@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   post 'ranking' => 'rankings#index'
   get ':state' => 'parliamentarians#parliamentarians_per_state'
 
+  get ':party' => 'parliamentarians#parliamentarians_per_party'
+
   post 'parliamentarians_search' => 'parliamentarians#index'
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup

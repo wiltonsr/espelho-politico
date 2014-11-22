@@ -30,7 +30,7 @@ class ParliamentariansController < ApplicationController
   end
 
   def parliamentarians_per_state
-    @selected_state = Parliamentarian.where(params[:state])
+    @selected_state = Parliamentarian.where(:state)
   end
 
   def parliamentarians_per_party
