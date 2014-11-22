@@ -24,6 +24,5 @@ Rails.application.routes.draw do
   get ':party' => 'parliamentarians#parliamentarians_per_party'
 
   post 'parliamentarians_search' => 'parliamentarians#index'
-  post 'quiz' => 'quiz#index'
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 end
