@@ -22,7 +22,7 @@
                   <% if user_signed_in? %>
                     Texto explicativo sobre o quiz
                     <div class="quiz-button" style="width:10%; position: absolute; left:45%; padding-top: 20px";>
-                      <%= button_to 'Iniciar Quiz', quiz_index_path, method: :create, class: "button postfix" %>
+                      <%= button_to 'Iniciar Quiz', quiz_index_path, class: "button postfix" %>
                     </div>
                   <% else %>
                     Logue-se

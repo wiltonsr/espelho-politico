@@ -1,7 +1,10 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
   $(document).on( "click", ".button", function() {
-    $(".quiz").load("/quiz .side-nav", {params: 0})
+    var user = <%= current_user.id %>;
+    var proposition = $(".proposition").attr('id');
+    var like = $(this).attr('id');
+    $(".quiz").load("/quiz .side-nav", {vote: {user_id: user, proposition_id: proposition, 'approved?': like}})
   });
 </script>
 
@@ -26,18 +29,20 @@
               <ul class="side-nav">
                 <li class="toggle-topbar menu-icon">
                   <% if user_signed_in? %>
-                    <%= @proposition.explanation %>
+                    <p class="proposition", id= <%= @proposition.id %>>
+                      <%= @proposition.explanation %>
+                    </p>
                     <div class="quiz-button" style="position: absolute; left: 30%; top: 150px; display: inline-flex">
                       <table style="background: transparent; border: 0">
                         <tr>
                           <td>
-                            <%= button_to 'Aprova', 'javascript:;', class: "button" %>
+                            <%= button_to 'Aprova', 'javascript:;', class: "button", id: true %>
                           </td>
                           <td>
-                            <%= button_to 'Desaprova', 'javascript:;', class: "button" %>
+                            <%= button_to 'Desaprova', 'javascript:;', class: "button", id: false %>
                           </td>
                           <td> 
-                            <%= button_to 'Pular', 'javascript:;', class: "button" %>
+                            <%= button_to 'Pular', 'javascript:;', class: "button", id: "Pular"%>
                           </td>
                         </tr>
                       </table>
