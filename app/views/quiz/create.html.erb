@@ -29,24 +29,28 @@
               <ul class="side-nav">
                 <li class="toggle-topbar menu-icon">
                   <% if user_signed_in? %>
-                    <p class="proposition", id= <%= @proposition.id %>>
-                      <%= @proposition.explanation %>
-                    </p>
-                    <div class="quiz-button" style="position: absolute; left: 30%; top: 150px; display: inline-flex">
-                      <table style="background: transparent; border: 0">
-                        <tr>
-                          <td>
-                            <%= button_to 'Aprova', 'javascript:;', class: "button", id: true %>
-                          </td>
-                          <td>
-                            <%= button_to 'Desaprova', 'javascript:;', class: "button", id: false %>
-                          </td>
-                          <td> 
-                            <%= button_to 'Pular', 'javascript:;', class: "button", id: "Pular"%>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
+                    <% if @proposition.nil? %>
+                      Não há mais proposições para serem votadas
+                    <% else %>
+                      <p class="proposition", id= <%= @proposition.id %>>
+                        <%= @proposition.explanation %>
+                      </p>
+                      <div class="quiz-button" style="position: absolute; left: 30%; top: 150px; display: inline-flex">
+                        <table style="background: transparent; border: 0">
+                          <tr>
+                            <td>
+                              <%= button_to 'Aprova', 'javascript:;', class: "button", id: true %>
+                            </td>
+                            <td>
+                              <%= button_to 'Desaprova', 'javascript:;', class: "button", id: false %>
+                            </td>
+                            <td>
+                              <%= button_to 'Pular', 'javascript:;', class: "button", id: "Pular"%>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    <% end %>
                   <% else %>
                     Logue-se
                   <% end %>
