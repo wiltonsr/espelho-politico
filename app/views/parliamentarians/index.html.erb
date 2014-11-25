@@ -124,7 +124,7 @@
                 <% @parliamentarians.each do |p| %>
                   <p align="center"><span><img src="<%= p.url_photo %>"/></span></p>
                   <p align="center"><b><%= link_to p.name, profile_path(p)%></b></p>
-                  <li align="left">Partido: <%= p.party %></li>
+                  <li align="center">Partido: <%= p.party %></li>
                 <%end%>
                 </ul>
               <%end%>
