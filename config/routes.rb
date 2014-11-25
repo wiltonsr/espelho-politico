@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :profile
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
+  resources :interest_profile
+
   post 'ranking' => 'rankings#index'
 
   resources :parliamentarians, :except => [:show] do
