@@ -1,4 +1,4 @@
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"> </script>
 <script type="text/javascript">
 
   google.load("visualization", "1", {packages:["corechart"]});
@@ -55,10 +55,10 @@
                     <h1><a href="#">Ranking Área de Investimento x Parlamentares</a></h1>
                   </li>
                 </ul>  
-            </nav>
-            
+            </nav>            
+
             <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-            
+
             <div style="width:50%;height:600px;line-height:3em;overflow:scroll;padding:5px;float:left">
               <aside>
                 <ul class="side-nav">
@@ -69,7 +69,7 @@
                       <li>
                         <%= link_to link, 'javascript:;', class: "theme-chooser"  %>
                       </li>
-                    <% end %>
+                    <%end%>
                   </li>
                 </ul>
               </aside>
@@ -83,7 +83,7 @@
                     <li class="toggle-topbar menu-icon">
                       <%= link_to show_name_and_number_of_propositions(@selected_theme_id, p.parliamentarian_id), profile_path(p.parliamentarian_id) %>
                     </li>
-                  <% end %>
+                  <%end%>
                 </ul>
               </div>
             </div>

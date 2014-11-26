@@ -16,28 +16,27 @@
   </div>
 </div>
 
- <div class="off-canvas-wrap off-canvas-example" data-offcanvas="">
+<div class="off-canvas-wrap" data-offcanvas>
   <div class="inner-wrap">
     <nav class="tab-bar show-for-small">
       <section class="left-small">
         <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
       </section>
-
       <section class="middle tab-bar-section">
         <h1 class="title">Espelho Político</h1>
       </section>
+        <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+      </section>
     </nav>
-
-    <aside class="left-off-canvas-menu">
+    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
       <ul class="off-canvas-list">
         <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Início', root_url %></a></li></a></li>
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Perfil Parlamentar', parliamentarians_path %></a></li></a></li>
         <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Rankings', rankings_path %></a></li></a></li>
-        <li><a href="#"><li class="active"><a target="_blank">Quiz</a></li></a></li>
+        <li><a href="#"><li class="active"><a target="_blank"><%= link_to 'Quiz', quiz_index_path %></a></li></a></li>
         <li><a href="#"><li class="active"><a target="_blank">Sobre</a></li></a></li>
-        
       </ul>
     </aside>
-
     <section class="main-section">
       <div class="row">
         <div class="large-12 columns">
@@ -51,7 +50,6 @@
         </div>
       </div>
     </section>
-
     <a class="exit-off-canvas"></a>
   </div>
 </div>
