@@ -13,6 +13,7 @@
   <dd>Email: <%= p.email %> </dd>
   <dd>Telefone: <%= p.phone %></dd>
   <dd>Endereço: Praça dos Três Poderes - Esplanada dos Ministérios, Brasília. Gabinete: <%= p.cabinet %> </dd>
+  <dd>Quantidade de Proposições: <%= @prop_parliamentarian.count %></dd>
   <hr>
     <h3><center><b> Proposições</b></center></h3>
     <section class="main-section">
@@ -20,7 +21,11 @@
         <div class="large-12 columns">
           <br>
             <% if @prop_parliamentarian.count == 0 %>
-              <dd><center><b> O parlamentar não possui proposições.</b></center></dd>
+              <center>
+                <div data-alert class="alert-box info radious">
+                  O parlamentar não possui proposições.
+                </div>
+              </center>
             <% end %>
             <% else %>
               <% @prop_parliamentarian.each do |pro| %>
