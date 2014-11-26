@@ -2,7 +2,7 @@
 <script type="text/javascript">
 
   google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
+  window.setTimeout(drawChart, 3000);
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Task', 'Hours per Day'],
