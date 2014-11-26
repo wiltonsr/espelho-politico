@@ -13,8 +13,28 @@
         dataType: "json",
         data: {"id": value},
         success: function (response) {
-            parliamentarian_list = document.getElementsByClassName('parliamentarian_list');
-            console.log(parliamentarian_list);
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = ""
+
+            console.log(response)
+            for(var i = 0; i < response.length; i++) {
+                parliamentarian_list.innerHTML += "<div>";
+                parliamentarian_list.innerHTML += "<ul>";
+                parliamentarian_list.innerHTML += "<p align='center'>";
+                parliamentarian_list.innerHTML += "<span>";
+                parliamentarian_list.innerHTML += "<img src='" + response[i].url_photo + "'>";
+                parliamentarian_list.innerHTML += "</span>";
+                parliamentarian_list.innerHTML += "</p>";
+                parliamentarian_list.innerHTML += "<p align='center'>";
+                parliamentarian_list.innerHTML += "<b>";
+                parliamentarian_list.innerHTML += "<a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a>";
+                parliamentarian_list.innerHTML += "</b>";
+                parliamentarian_list.innerHTML += "</p>";
+                parliamentarian_list.innerHTML += "<li align='left'> Partido: " + response[i].party + "</li>";
+                parliamentarian_list.innerHTML += "</ul>";
+                parliamentarian_list.innerHTML += "</div>";
+            }
         },
         error: function () {
           console.log("erro");
@@ -43,7 +63,28 @@
         dataType: "json",
         data: {"id": value},
         success: function (response) {
-          console.log("sucesso");
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = ""
+
+            console.log(response)
+            for(var i = 0; i < response.length; i++) {
+                parliamentarian_list.innerHTML += "<div>";
+                parliamentarian_list.innerHTML += "<ul>";
+                parliamentarian_list.innerHTML += "<p align='center'>";
+                parliamentarian_list.innerHTML += "<span>";
+                parliamentarian_list.innerHTML += "<img src='" + response[i].url_photo + "'>";
+                parliamentarian_list.innerHTML += "</span>";
+                parliamentarian_list.innerHTML += "</p>";
+                parliamentarian_list.innerHTML += "<p align='center'>";
+                parliamentarian_list.innerHTML += "<b>";
+                parliamentarian_list.innerHTML += "<a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a>";
+                parliamentarian_list.innerHTML += "</b>";
+                parliamentarian_list.innerHTML += "</p>";
+                parliamentarian_list.innerHTML += "<li align='left'> Partido: " + response[i].party + "</li>";
+                parliamentarian_list.innerHTML += "</ul>";
+                parliamentarian_list.innerHTML += "</div>";
+            }
         },
       error: function () {
         console.log("erro");
@@ -98,7 +139,7 @@
               <%end%>
             </ul>
           </ul>
-          <div class="parliamentarian_list" style="width:940px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
+          <div id="parliamentarian_list" style="width:940px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
             <div>
               <% if !params[:search].blank? %>
                 <ul>
