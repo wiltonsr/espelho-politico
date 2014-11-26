@@ -19,25 +19,14 @@
 
             console.log(response)
             for(var i = 0; i < response.length; i++) {
-                parliamentarian_list.innerHTML += "<div>";
-                parliamentarian_list.innerHTML += "<ul>";
-                parliamentarian_list.innerHTML += "<p align='center'>";
-                parliamentarian_list.innerHTML += "<span>";
-                parliamentarian_list.innerHTML += "<img src='" + response[i].url_photo + "'>";
-                parliamentarian_list.innerHTML += "</span>";
-                parliamentarian_list.innerHTML += "</p>";
-                parliamentarian_list.innerHTML += "<p align='center'>";
-                parliamentarian_list.innerHTML += "<b>";
-                parliamentarian_list.innerHTML += "<a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a>";
-                parliamentarian_list.innerHTML += "</b>";
-                parliamentarian_list.innerHTML += "</p>";
-                parliamentarian_list.innerHTML += "<li align='left'> Partido: " + response[i].party + "</li>";
-                parliamentarian_list.innerHTML += "</ul>";
-                parliamentarian_list.innerHTML += "</div>";
+                parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li></ul></div>";
             }
         },
         error: function () {
-          console.log("erro");
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = "<h3>Erro ao tentar obter parlamentares</h3>"
+
         }
       });
     }
@@ -69,26 +58,15 @@
 
             console.log(response)
             for(var i = 0; i < response.length; i++) {
-                parliamentarian_list.innerHTML += "<div>";
-                parliamentarian_list.innerHTML += "<ul>";
-                parliamentarian_list.innerHTML += "<p align='center'>";
-                parliamentarian_list.innerHTML += "<span>";
-                parliamentarian_list.innerHTML += "<img src='" + response[i].url_photo + "'>";
-                parliamentarian_list.innerHTML += "</span>";
-                parliamentarian_list.innerHTML += "</p>";
-                parliamentarian_list.innerHTML += "<p align='center'>";
-                parliamentarian_list.innerHTML += "<b>";
-                parliamentarian_list.innerHTML += "<a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a>";
-                parliamentarian_list.innerHTML += "</b>";
-                parliamentarian_list.innerHTML += "</p>";
-                parliamentarian_list.innerHTML += "<li align='left'> Partido: " + response[i].party + "</li>";
-                parliamentarian_list.innerHTML += "</ul>";
-                parliamentarian_list.innerHTML += "</div>";
+                parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li></ul></div>";
             }
         },
-      error: function () {
-        console.log("erro");
-      }
+        error: function () {
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = "<h3>Erro ao tentar obter parlamentares</h3>"
+
+            }
       });
     }
 
