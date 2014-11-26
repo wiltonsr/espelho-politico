@@ -30,10 +30,16 @@ class ParliamentariansController < ApplicationController
   end
 
   def parliamentarians_per_state
-    @selected_state = Parliamentarian.where(:state)
+    @selected_state = Parliamentarian.where(params[:state])
+    respond_to do |format|
+      format.js { render json: @selected_state }
+    end
   end
 
   def parliamentarians_per_party
-    @selected_party = Parliamentarian.where(:party)
+    @selected_party = Parliamentarian.where(params[:party])
+    respond_to do |format|
+      format.js { render json: @selected_party }
+    end
   end
 end

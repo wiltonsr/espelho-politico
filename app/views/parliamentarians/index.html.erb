@@ -11,9 +11,10 @@
         url: "/parliamentarians/parliamentarians_per_state",
         type: "GET",
         dataType: "json",
-        data: {"state": value},
+        data: {"id": value},
         success: function (response) {
-          console.log("sucesso");
+            parliamentarian_list = document.getElementsByClassName('parliamentarian_list');
+            console.log(parliamentarian_list);
         },
         error: function () {
           console.log("erro");
@@ -40,7 +41,7 @@
       url: "/parliamentarians/parliamentarians_per_party",
         type: "GET",
         dataType: "json",
-        data: {"party": value},
+        data: {"id": value},
         success: function (response) {
           console.log("sucesso");
         },
@@ -97,7 +98,7 @@
               <%end%>
             </ul>
           </ul>
-          <div style="width:940px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
+          <div class="parliamentarian_list" style="width:940px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
             <div>
               <% if !params[:search].blank? %>
                 <ul>
