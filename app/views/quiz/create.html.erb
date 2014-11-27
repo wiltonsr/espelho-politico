@@ -29,17 +29,18 @@
               <ul class="side-nav">
                 <li class="toggle-topbar menu-icon">
                   <% if user_signed_in? %>
-                    <% if @proposition.nil? %>
-                      Não há mais proposições para serem votadas
+                    <% if @proposition_hold.empty? %>
+                      <center>
+                        <div data-alert class="alert-box info radious">
+                          Não há mais proposições para serem votadas. Clique no botão abaixo para ver os resultados.
+                        </div>
+                        <%= button_to 'Visualizar Perfil de Interesse', interest_profile_index_path, :method => :get, class: "button" %>
+                      </center>
                     <% else %>
                       <p class="proposition", id= <%= @proposition.id %>>
-                        <b>Explicação da Proposição:</b>
-                        <br><%= @proposition.explanation %>
-
-                        <br><br><b>Ementa da Proposição:</b>
-                        <br><%= @proposition.amendment %>
+                        <%= @proposition.explanation %>
                       </p>
-                      <div class="quizbutton" style="position: relative; left: 30%; top: 150px; display: inlineflex">
+                      <div class="quiz-button" style="position: absolute; left: 30%; top: 150px; display: inlineflex">
                         <table style="background: transparent; border: 0">
                           <tr>
                             <td>
