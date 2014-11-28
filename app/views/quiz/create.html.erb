@@ -1,13 +1,4 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-  $(document).on( "click", ".button", function() {
-    var user = <%= current_user.id %>;
-    var proposition = $(".proposition").attr('id');
-    var like = $(this).attr('id');
-    $(".quiz").load("/quiz .side-nav", {vote: {user_id: user, proposition_id: proposition, 'approved?': like, parliamentarian_id: null}})
-  });
-</script>
-
+<!DOCTYPE html>
 <html lang="en">
   <head>
   </head>
@@ -20,43 +11,42 @@
               <nav class="top-bar show-for-medium-up" data-topbar>
                 <ul class="title-area">
                   <li class="name">
-                    <h1><a href="#">Quiz</a></h1>
+                    <h1><a href="#">Perfil de Interesse</a></h1>
                   </li>
                 </ul>
               </nav>
             </div>
-            <div class="quiz" style="width:100%;height:600px;line-height:3em;padding:20px;float:left">
+            <div style="width:100%;padding:20px;float:left">
               <ul class="side-nav">
                 <li class="toggle-topbar menu-icon">
                   <% if user_signed_in? %>
-                    <% if @proposition_hold.empty? %>
-                      <center>
-                        <div data-alert class="alert-box info radious">
-                          Não há mais proposições para serem votadas. Clique no botão abaixo para ver os resultados.
-                        </div>
-                        <%= button_to 'Visualizar Perfil de Interesse', interest_profile_index_path, :method => :get, class: "button" %>
-                      </center>
+                      O perfil de interesse mostra o parlamentar e tema que você tem mais e menos afinidade. Ele é baseado na votação de cada proposição mostrada no quiz. Então, quanto mais você se dedica a realização do quiz, mais precisos serão os resultados aqui apresentados.<br><br>
+
+                      <% if @interest.to_a.empty? %>
+                        <center><div class="alert-box info radius"> Você não realizou o quiz ainda</div>
+                        <%= button_to "Realizar Quiz", quiz_index_path, class:"button" %>
+                        </center>
+                      <% else %>
+                        <ul class="pricing-table">
+                          <li class="title">Parlamentar mais aprovado </li>
+                          <li class="bullet-item"><%= sort_most_approved_parllamentarian(@interest).name.humanize.mb_chars.titleize
+   %></li>
+                        </ul>
+                        <ul class="pricing-table">
+                          <li class="title">Parlamentar mais reprovado </li>
+                          <li class="bullet-item"><%= sort_most_disapproved_parllamentarian(@interest).name.humanize.mb_chars.titleize
+   %></li>
+                        </ul>
+                        <ul class="pricing-table">
+                          <li class="title">Tema mais aprovado </li>
+                          <li class="bullet-item"><%= sort_most_approved_theme(@interest).description %></li>
+                        </ul>
+                        <ul class="pricing-table">
+                          <li class="title">Tema mais reprovado </li>
+                          <li class="bullet-item"><%= sort_most_disapproved_theme(@interest).description %></li>
+                        </ul>
+                      <% end %>
                     <% else %>
-                      <p class="proposition", id= <%= @proposition.id %>>
-                        <%= @proposition.explanation %>
-                      </p>
-                      <div class="quiz-button" style="position: absolute; left: 30%; top: 150px; display: inlineflex">
-                        <table style="background: transparent; border: 0">
-                          <tr>
-                            <td>
-                              <%= button_to 'Aprova', 'javascript:;', class: "button", id: true %>
-                            </td>
-                            <td>
-                              <%= button_to 'Desaprova', 'javascript:;', class: "button", id: false %>
-                            </td>
-                            <td>
-                              <%= button_to 'Pular', 'javascript:;', class: "button", id: "Pular"%>
-                            </td>
-                          </tr>
-                        </table>
-                      </div>
-                    <% end %>
-                  <% else %>
                     Logue-se
                   <% end %>
                 </li>
