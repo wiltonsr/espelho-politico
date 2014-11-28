@@ -14,14 +14,17 @@ Rails.application.routes.draw do
   resources :users
   resources :themes
   resources :rankings
-  resources :parliamentarians
   resources :profile
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  post 'ranking' => 'rankings#index'
-  get ':state' => 'parliamentarians#parliamentarians_per_state'
+  resources :interest_profile
 
-  get ':party' => 'parliamentarians#parliamentarians_per_party'
+  post 'ranking' => 'rankings#index'
+
+  resources :parliamentarians, :except => [:show] do
+    get 'parliamentarians_per_party', :on => :collection
+    get 'parliamentarians_per_state', :on => :collection
+  end
 
   post 'parliamentarians_search' => 'parliamentarians#index'
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup

@@ -11,12 +11,22 @@
         url: "/parliamentarians/parliamentarians_per_state",
         type: "GET",
         dataType: "json",
-        data: {"state": value},
+        data: {"id": value},
         success: function (response) {
-          console.log("sucesso");
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = ""
+
+            console.log(response)
+            for(var i = 0; i < response.length; i++) {
+                parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li><li align='left'>Estado: " + response[i].state + "</ul></div>";
+            }
         },
         error: function () {
-          console.log("erro");
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = "<h3>Erro ao tentar obter parlamentares</h3>"
+
         }
       });
     }
@@ -40,13 +50,23 @@
       url: "/parliamentarians/parliamentarians_per_party",
         type: "GET",
         dataType: "json",
-        data: {"party": value},
+        data: {"id": value},
         success: function (response) {
-          console.log("sucesso");
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = ""
+
+            console.log(response)
+            for(var i = 0; i < response.length; i++) {
+            parliamentarian_list.innerHTML += "<div><ul><p align='center'><span><img src='" + response[i].url_photo + "'></span></p><p align='center'><b><a href='/profile/" + response[i].id +  "'> " + response[i].name + "</a></b></p><li align='left'> Partido: " + response[i].party + "</li><li align='left'>Estado: " + response[i].state + "</ul></div>";
+            }
         },
-      error: function () {
-        console.log("erro");
-      }
+        error: function () {
+            parliamentarian_list = document.getElementById('parliamentarian_list');
+
+            parliamentarian_list.innerHTML = "<h3>Erro ao tentar obter parlamentares</h3>"
+
+            }
       });
     }
 
@@ -97,14 +117,17 @@
               <%end%>
             </ul>
           </ul>
-          <div style="width:940px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
+          <div id="parliamentarian_list" style="width:940px;height:800px;line-height:3em;overflow:scroll;padding:5px;">
             <div>
               <% if !params[:search].blank? %>
                 <ul>
                 <% @parliamentarians.each do |p| %>
                   <p align="center"><span><img src="<%= p.url_photo %>"/></span></p>
-                  <p align="center"><b><%= link_to p.name, profile_path(p)%></b></p>
-                  <li align="left">Partido: <%= p.party %></li>
+                  <ul class="pricing-table">
+                    <li class="title"><%= p.name %></li>
+                    <li class="price">Partido: <%= p.party %></li>
+                    <li class="bullet-item" align="center"><a href="#"><%= link_to 'Ver Perfil', profile_path(p) %></a></li>
+                  </ul>
                 <%end%>
                 </ul>
               <%end%>
